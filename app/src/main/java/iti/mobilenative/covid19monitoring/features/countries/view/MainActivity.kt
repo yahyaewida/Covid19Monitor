@@ -20,7 +20,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         countriesViewModel = ViewModelProviders.of(this).get(CountriesViewModel::class.java)
+        Log.i("mainactivity","llocalDB is :"+ App.database.getCountryDao()?.getAllCountries())
         getCountriesObservable()
+        Log.i("mainactivity","llocalDB is :"+ App.database.getCountryDao()?.getAllCountries())
     }
     fun getCountriesObservable(){
         val d = countriesViewModel.getCasesByAllCountries()
@@ -46,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         Log.i("mainactivity","first element :"+ list.get(0))
         Log.i("mainactivity","last element  :"+ list.get((list.size)-1))
 
+        //App.database.getCountryDao()?.insertNewCountry(list.get(0))
     }
 
     fun displayError(error: String){

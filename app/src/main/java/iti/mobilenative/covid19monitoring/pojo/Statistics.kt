@@ -2,15 +2,9 @@ package iti.mobilenative.covid19monitoring.pojo
 
 import com.google.gson.annotations.SerializedName
 
-class Statistics (
+data class Statistics (
     @SerializedName("updated")
     val updated: Number,
-
-    @SerializedName("countryInfo")
-    val countryInfo: CountryInfo,
-
-    @SerializedName("continent")
-    val continent: String,
 
     @SerializedName("cases")
     val cases: Number,
