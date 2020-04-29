@@ -4,10 +4,11 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import iti.mobilenative.covid19monitoring.pojo.Country
 
-@Database(entities = [CountryDummy::class],version = 1)
+@Database(entities = [Country::class],version = 1)
 abstract class LocalDatabase : RoomDatabase(){
-    abstract fun CountryDao() : CountryDummyDao?
+    abstract fun getCountryDao() : CountryDao?
 
     companion object {
         private const val DB_NAME = "country_db"
