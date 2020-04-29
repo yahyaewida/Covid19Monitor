@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
         Log.i("mainactivity","size is :"+ list.size)
         Log.i("mainactivity","first element :"+ list.get(0))
         Log.i("mainactivity","last element  :"+ list.get((list.size)-1))
-
     }
 
     fun displayError(error: String){
