@@ -4,16 +4,12 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.Single
 import iti.mobilenative.covid19monitoring.features.countries.repository.CountriesRepository
 import iti.mobilenative.covid19monitoring.pojo.Country
+import javax.inject.Inject
 
-class CountriesViewModel : ViewModel() {
-
-    var repo : CountriesRepository
-    init {
-        repo = CountriesRepository()
-    }
+class CountriesViewModel @Inject constructor(val repository: CountriesRepository): ViewModel() {
 
     fun  getCasesByAllCountries(): Single<List<Country>>{
-        return repo.getCasesByAllCountries()
+        return repository.getCasesByAllCountries()
     }
 
 }

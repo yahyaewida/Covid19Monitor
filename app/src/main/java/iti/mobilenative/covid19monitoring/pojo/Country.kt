@@ -2,7 +2,6 @@ package iti.mobilenative.covid19monitoring.pojo
 
 import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 

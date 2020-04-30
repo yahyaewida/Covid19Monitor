@@ -5,13 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import iti.mobilenative.covid19monitoring.pojo.Country
+import iti.mobilenative.covid19monitoring.utils.DB_NAME
 
-@Database(entities = [Country::class],version = 1)
+@Database(entities = [Country::class],version = 1,exportSchema = false)
 abstract class LocalDatabase : RoomDatabase(){
-    abstract fun getCountryDao() : CountryDao?
+    abstract fun getCountryDao() : CountryDao
 
-    companion object {
-        private const val DB_NAME = "country_db"
+   /* companion object {
         private var INSTANCE: LocalDatabase? = null
         fun getInstance(application: Application?): LocalDatabase? {
             if (INSTANCE == null) {
@@ -24,5 +24,5 @@ abstract class LocalDatabase : RoomDatabase(){
             }
             return INSTANCE
         }
-    }
+    }*/
 }

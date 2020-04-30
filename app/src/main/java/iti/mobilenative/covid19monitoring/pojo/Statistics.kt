@@ -2,48 +2,42 @@ package iti.mobilenative.covid19monitoring.pojo
 
 import com.google.gson.annotations.SerializedName
 
-class Statistics (
+data class Statistics (
     @SerializedName("updated")
-    val updated: Number,
-
-    @SerializedName("countryInfo")
-    val countryInfo: CountryInfo,
-
-    @SerializedName("continent")
-    val continent: String,
+    val updated: Long,
 
     @SerializedName("cases")
-    val cases: Number,
+    val cases: Long,
 
     @SerializedName("todayCases")
-    val todayCases: Number,
+    val todayCases: Long,
 
     @SerializedName("deaths")
-    val deaths: Number,
+    val deaths: Long,
 
     @SerializedName("todayDeaths")
-    val todayDeaths: Number,
+    val todayDeaths: Long,
 
     @SerializedName("recovered")
-    val recovered: Number,
+    val recovered: Long,
 
     @SerializedName("active")
-    val active: Number,
+    val active: Long,
 
     @SerializedName("critical")
-    val critical: Number,
+    val critical: Long,
 
     @SerializedName("casesPerOneMillion")
-    val casesPerOneMillion: Number,
+    val casesPerOneMillion: Double,
 
     @SerializedName("deathsPerOneMillion")
-    val deathsPerOneMillion: Number,
+    val deathsPerOneMillion: Double,
 
     @SerializedName("tests")
     val tests: Number,
 
     @SerializedName("testsPerOneMillion")
-    val testsPerOneMillion: Number,
+    val testsPerOneMillion: Double,
 
     @SerializedName("affectedCountries")
     val affectedCountries: String
