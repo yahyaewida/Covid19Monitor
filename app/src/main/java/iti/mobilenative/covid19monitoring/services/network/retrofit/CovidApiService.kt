@@ -2,9 +2,11 @@ package iti.mobilenative.covid19monitoring.services.network.retrofit
 
 import io.reactivex.Single
 import iti.mobilenative.covid19monitoring.pojo.Country
+import iti.mobilenative.covid19monitoring.pojo.HistoricalStatistics
 import iti.mobilenative.covid19monitoring.pojo.Statistics
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface CovidApiService {
 
@@ -19,5 +21,8 @@ interface CovidApiService {
 
     @GET("all")
     fun getStatistics() : Single<Statistics>
+
+    @GET("historical/all")
+    fun getHistoricalStatistics(@Query("lastdays") lastDays: String) : Single<List<HistoricalStatistics>>
 
 }

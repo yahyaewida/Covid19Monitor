@@ -1,4 +1,4 @@
-package iti.mobilenative.covid19monitoring.features.statistics.view
+package iti.mobilenative.covid19monitoring.features.statistics.allStatistics.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,9 +8,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import iti.mobilenative.covid19monitoring.R
-import iti.mobilenative.covid19monitoring.features.selectedCountries.view.SubscribeActivity
-import iti.mobilenative.covid19monitoring.features.selectedCountries.viewmodel.SelectedCountriesViewModel
-import iti.mobilenative.covid19monitoring.features.statistics.viewmodel.StatisticsViewModel
+import iti.mobilenative.covid19monitoring.features.statistics.allStatistics.viewmodel.StatisticsViewModel
 import iti.mobilenative.covid19monitoring.pojo.Statistics
 
 class StatisticsActivity : AppCompatActivity() {

@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_selected_countries" />
     <fragment
         android:id="@+id/statisticsFragment"
-        android:name="iti.mobilenative.covid19monitoring.features.statistics.view.StatisticsFragment"
+        android:name="iti.mobilenative.covid19monitoring.features.statistics.StatisticsFragment"
         android:label="fragment_statistics"
         tools:layout="@layout/fragment_statistics" />
 </navigation>

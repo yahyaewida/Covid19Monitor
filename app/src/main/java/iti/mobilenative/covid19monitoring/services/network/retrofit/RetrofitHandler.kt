@@ -2,6 +2,7 @@ package iti.mobilenative.covid19monitoring.services.network.retrofit
 
 import io.reactivex.Single
 import iti.mobilenative.covid19monitoring.pojo.Country
+import iti.mobilenative.covid19monitoring.pojo.HistoricalStatistics
 import iti.mobilenative.covid19monitoring.pojo.Statistics
 import iti.mobilenative.covid19monitoring.services.network.contract.Remotable
 
@@ -26,5 +27,9 @@ class RetrofitHandler : Remotable {
 
     override fun getStatistics(): Single<Statistics> {
         return service.getStatistics()
+    }
+
+    override fun getHistoricalStatistics(lastDays: String): Single<List<HistoricalStatistics>> {
+        return service.getHistoricalStatistics(lastDays)
     }
 }

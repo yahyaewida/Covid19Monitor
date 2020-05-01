@@ -1,4 +1,4 @@
-package iti.mobilenative.covid19monitoring.features.statistics.repository
+package iti.mobilenative.covid19monitoring.features.statistics.allStatistics.repository
 
 import io.reactivex.Single
 import iti.mobilenative.covid19monitoring.pojo.Statistics
