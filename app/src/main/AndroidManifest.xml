@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="iti.mobilenative.covid19monitoring">
-<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".utils.App"
@@ -11,9 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".features.selectedCountries.view.SubscribeActivity"></activity>
-        <activity android:name=".features.statistics.view.StatisticsActivity" />
-        <activity android:name=".features.countries.view.MainActivity">
+        <!--<activity android:name=".features.countries.view.MainActivity"></activity>
+        <activity android:name=".features.selectedCountries.view.SubscribeActivity" />
+        <activity android:name=".features.statistics.view.StatisticsActivity" /> -->
+        <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/countriesFragment"
+        android:icon="@drawable/ic_world"
+        android:title="Countries" />
+    <item
+        android:id="@+id/selectedCountriesFragment"
+        android:icon="@drawable/ic_flag"
+        android:title="Selected Countries" />
+    <item
+        android:id="@+id/statisticsFragment"
+        android:icon="@drawable/ic_bars"
+        android:title="Statistics"/>
+</menu>
