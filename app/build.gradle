@@ -74,5 +74,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     //material_io
     implementation 'com.google.android.material:material:1.1.0'
+    //MpAndroid
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 }

@@ -7,7 +7,7 @@ import iti.mobilenative.covid19monitoring.services.network.retrofit.RetrofitHand
 class HistoricalStatisticsRepository {
     private val retrofitHandler = RetrofitHandler()
 
-    fun getHistoricalStatistics(lastDays: String): Single<List<HistoricalStatistics>> {
+    fun getHistoricalStatistics(lastDays: String): Single<HistoricalStatistics> {
         return retrofitHandler.getHistoricalStatistics(lastDays)
     }
 }

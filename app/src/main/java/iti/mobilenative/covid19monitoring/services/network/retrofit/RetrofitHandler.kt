@@ -29,7 +29,7 @@ class RetrofitHandler : Remotable {
         return service.getStatistics()
     }
 
-    override fun getHistoricalStatistics(lastDays: String): Single<List<HistoricalStatistics>> {
+    override fun getHistoricalStatistics(lastDays: String): Single<HistoricalStatistics> {
         return service.getHistoricalStatistics(lastDays)
     }
 }

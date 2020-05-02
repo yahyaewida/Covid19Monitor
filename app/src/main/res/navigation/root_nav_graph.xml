@@ -2,9 +2,9 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
+    android:id="@+id/root_nav_graph"
     app:startDestination="@id/countriesFragment">
-
+    <include app:graph="@navigation/statistics_nav_graph" />
     <fragment
         android:id="@+id/countriesFragment"
         android:name="iti.mobilenative.covid19monitoring.features.countries.view.CountriesFragment"
@@ -18,6 +18,9 @@
     <fragment
         android:id="@+id/statisticsFragment"
         android:name="iti.mobilenative.covid19monitoring.features.statistics.StatisticsFragment"
-        android:label="fragment_statistics"
-        tools:layout="@layout/fragment_statistics" />
+        android:label="StatisticsFragment" >
+        <action
+            android:id="@+id/statisticsFragment_To_statistics_nav_graph"
+            app:destination="@id/statistics_nav_graph" />
+    </fragment>
 </navigation>

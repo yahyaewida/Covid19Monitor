@@ -16,7 +16,7 @@ class HomeActivity : AppCompatActivity() {
 
     fun setupViews()
     {
-        var navController =findNavController(R.id.nav_host_fragment)
+        var navController = findNavController(R.id.nav_host_fragment)
         bottomNavigationView.setupWithNavController(navController)
     }
 }

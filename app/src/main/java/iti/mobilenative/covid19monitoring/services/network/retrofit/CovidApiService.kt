@@ -23,6 +23,6 @@ interface CovidApiService {
     fun getStatistics() : Single<Statistics>
 
     @GET("historical/all")
-    fun getHistoricalStatistics(@Query("lastdays") lastDays: String) : Single<List<HistoricalStatistics>>
+    fun getHistoricalStatistics(@Query("lastdays") lastDays: String) : Single<HistoricalStatistics>
 
 }

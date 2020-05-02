@@ -1,8 +1,8 @@
-package iti.mobilenative.covid19monitoring.features.statistics.allStatistics.viewmodel
+package iti.mobilenative.covid19monitoring.features.statistics.currentStatistics.viewmodel
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.Single
-import iti.mobilenative.covid19monitoring.features.statistics.allStatistics.repository.StatisticsRepository
+import iti.mobilenative.covid19monitoring.features.statistics.currentStatistics.repository.StatisticsRepository
 import iti.mobilenative.covid19monitoring.pojo.Statistics
 
 class StatisticsViewModel :ViewModel(){
