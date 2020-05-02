@@ -6,9 +6,6 @@ data class CountryInfo(
     @SerializedName("_id")
     var _id: Long = 0,
 
-    @SerializedName("iso2")
-    var iso2: String  = "",
-
     @SerializedName("lat")
     var lat: Double = 0.0,
 

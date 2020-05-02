@@ -11,7 +11,7 @@ class StatisticsViewModel :ViewModel(){
     init {
         repo = StatisticsRepository()
     }
-    fun getStatistics(): Single<Statistics> {
+    /*fun getStatistics(): Single<Statistics> {
         return repo.getStatistics()
-    }
+    }*/
 }

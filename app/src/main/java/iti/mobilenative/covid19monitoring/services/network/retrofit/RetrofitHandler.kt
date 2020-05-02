@@ -5,14 +5,14 @@ import iti.mobilenative.covid19monitoring.pojo.Country
 import iti.mobilenative.covid19monitoring.pojo.Statistics
 import iti.mobilenative.covid19monitoring.services.network.contract.Remotable
 
-class RetrofitHandler : Remotable {
+class RetrofitHandler {//}: Remotable {
 
     val service: CovidApiService
     init {
         service = RetrofitFactory.create()
     }
-
-    override fun  getCasesByAllCountries(): Single<List<Country>> {
+/*
+    suspend override fun  getCasesByAllCountries(): Single<List<Country>> {
         return service.getCasesByAllCountries()
     }
 
@@ -26,5 +26,5 @@ class RetrofitHandler : Remotable {
 
     override fun getStatistics(): Single<Statistics> {
         return service.getStatistics()
-    }
+    }*/
 }

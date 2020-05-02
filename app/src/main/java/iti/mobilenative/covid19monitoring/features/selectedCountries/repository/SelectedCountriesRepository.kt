@@ -7,11 +7,11 @@ import iti.mobilenative.covid19monitoring.services.network.retrofit.RetrofitHand
 class SelectedCountriesRepository {
     private val retrofitHandler = RetrofitHandler()
 
-    fun getCasesBySelectedCountries(countries: String): Single<List<Country>> {
+    /*fun getCasesBySelectedCountries(countries: String): Single<List<Country>> {
         return retrofitHandler.getCasesBySelectedCountries(countries)
     }
 
     fun getCasesBySelectedCountry(country: String): Single<Country> {
         return retrofitHandler.getCasesBySelectedCountry(country)
-    }
+    }*/
 }

@@ -27,6 +27,10 @@ data class Statistics (
     @SerializedName("critical")
     val critical: Long,
 
+    @SerializedName("affectedCountries")
+    val affectedCountries: Int
+
+    /*
     @SerializedName("casesPerOneMillion")
     val casesPerOneMillion: Double,
 
@@ -37,8 +41,7 @@ data class Statistics (
     val tests: Number,
 
     @SerializedName("testsPerOneMillion")
-    val testsPerOneMillion: Double,
+    val testsPerOneMillion: Double*/
 
-    @SerializedName("affectedCountries")
-    val affectedCountries: String
+
 )

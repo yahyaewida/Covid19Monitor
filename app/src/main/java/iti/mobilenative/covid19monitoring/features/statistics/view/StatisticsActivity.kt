@@ -27,7 +27,7 @@ class StatisticsActivity : AppCompatActivity() {
     }
 
     fun getStatisticsObservable(){
-        val d = statisticsViewModel.getStatistics()
+       /* val d = statisticsViewModel.getStatistics()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(
                 {
@@ -36,7 +36,7 @@ class StatisticsActivity : AppCompatActivity() {
                     displayError(it.message!!)
                 }
             )
-        compositeDisposable.add(d)
+        compositeDisposable.add(d)*/
     }
     override fun onDestroy() {
         super.onDestroy()

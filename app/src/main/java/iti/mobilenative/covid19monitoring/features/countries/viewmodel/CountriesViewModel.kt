@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 class CountriesViewModel @Inject constructor(val repository: CountriesRepository): ViewModel() {
 
-    fun  getCasesByAllCountries(): Single<List<Country>>{
+    /*fun  getCasesByAllCountries(): Single<List<Country>>{
         return repository.getCasesByAllCountries()
     }
-
+*/
 }

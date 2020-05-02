@@ -11,11 +11,11 @@ class SelectedCountriesViewModel : ViewModel(){
         repo = SelectedCountriesRepository()
     }
 
-    fun  getCasesBySelectedCountries(countries: String): Single<List<Country>> {
+    /*fun  getCasesBySelectedCountries(countries: String): Single<List<Country>> {
         return repo.getCasesBySelectedCountries(countries)
     }
 
     fun  getCasesBySelectedCountry(country: String): Single<Country> {
         return repo.getCasesBySelectedCountry(country)
-    }
+    }*/
 }

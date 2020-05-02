@@ -32,7 +32,7 @@ class SubscribeActivity : AppCompatActivity() {
         Log.i(TAG,countriesParam)
     }
     fun getSelectedCountriesObservable(countries: String){
-        val d = selectedCountriesViewModel.getCasesBySelectedCountries(countries)
+       /* val d = selectedCountriesViewModel.getCasesBySelectedCountries(countries)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(
                 {
@@ -41,11 +41,11 @@ class SubscribeActivity : AppCompatActivity() {
                     displayError(it.message!!)
                 }
             )
-        compositeDisposable.add(d)
+        compositeDisposable.add(d)*/
     }
 
     fun getSelectedCountryObservable(country: String){
-        val d = selectedCountriesViewModel.getCasesBySelectedCountry(country)
+        /*val d = selectedCountriesViewModel.getCasesBySelectedCountry(country)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(
                 {
@@ -54,7 +54,7 @@ class SubscribeActivity : AppCompatActivity() {
                     displayError(it.message!!)
                 }
             )
-        compositeDisposable.add(d)
+        compositeDisposable.add(d)*/
     }
 
     private fun displayCountry(country: Country) {

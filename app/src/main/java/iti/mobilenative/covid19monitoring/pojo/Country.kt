@@ -4,8 +4,9 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import iti.mobilenative.covid19monitoring.utils.COUNTRY_TABLE_NAME
 
-@Entity(tableName = "countryTable")
+@Entity(tableName = COUNTRY_TABLE_NAME)
 data class Country(
 
     @SerializedName("updated")

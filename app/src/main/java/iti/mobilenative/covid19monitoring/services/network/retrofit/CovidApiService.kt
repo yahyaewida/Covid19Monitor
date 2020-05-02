@@ -9,15 +9,15 @@ import retrofit2.http.Path
 interface CovidApiService {
 
     @GET("countries")
-    fun getCasesByAllCountries() : Single<List<Country>>
+    suspend fun getCasesByAllCountries() : List<Country>
 
     @GET("countries/{countries}")
-    fun getCasesBySelectedCountries(@Path("countries") params: String) : Single<List<Country>>
+    suspend fun getCasesBySelectedCountries(@Path("countries") params: String) : List<Country>
 
     @GET("countries/{country}")
-    fun getCasesBySelectedCountry(@Path("country") param: String) : Single<Country>
+    suspend fun getCasesBySelectedCountry(@Path("country") param: String) : Country
 
     @GET("all")
-    fun getStatistics() : Single<Statistics>
+    suspend fun getStatistics() : Statistics
 
 }

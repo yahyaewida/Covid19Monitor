@@ -7,7 +7,7 @@ import iti.mobilenative.covid19monitoring.services.network.retrofit.RetrofitHand
 class StatisticsRepository {
     private val retrofitHandler = RetrofitHandler()
 
-    fun getStatistics(): Single<Statistics> {
+    /*fun getStatistics(): Single<Statistics> {
         return retrofitHandler.getStatistics()
-    }
+    }*/
 }

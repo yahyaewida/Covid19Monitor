@@ -7,6 +7,7 @@ import dagger.Provides
 import iti.mobilenative.covid19monitoring.dagger.scopes.ApplicationScope
 import iti.mobilenative.covid19monitoring.model.CountryDao
 import iti.mobilenative.covid19monitoring.model.LocalDatabase
+import iti.mobilenative.covid19monitoring.model.SubscriptionsDao
 import iti.mobilenative.covid19monitoring.utils.DB_NAME
 
 @Module(includes = [AppModule::class])
@@ -26,5 +27,11 @@ class RoomModule {
     @Provides
     fun getCountryDao(database: LocalDatabase) : CountryDao{
         return database.getCountryDao()
+    }
+
+    @ApplicationScope
+    @Provides
+    fun getSubscriptionsDao(database: LocalDatabase) : SubscriptionsDao{
+        return database.getSubscriptionsDao()
     }
 }
