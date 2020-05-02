@@ -12,17 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".features.countries.view.MainActivity">
+        <!--<activity android:name=".features.countries.view.MainActivity"></activity>
+        <activity android:name=".features.selectedCountries.view.SubscribeActivity" />
+        <activity android:name=".features.statistics.view.StatisticsActivity" /> -->
+        <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!--<activity android:name=".features.selectedCountries.view.SubscribeActivity" />
-        <activity android:name=".features.statistics.view.StatisticsActivity" /> -->
-        <activity android:name=".HomeActivity">
-
         </activity>
     </application>
 
