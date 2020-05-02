@@ -10,5 +10,5 @@ interface Remotable {
         fun getCasesBySelectedCountries(countries: String) : Single<List<Country>>
         fun getCasesBySelectedCountry(country: String) : Single<Country>
         fun getStatistics() : Single<Statistics>
-        fun getHistoricalStatistics(lastDays: String) : Single<List<HistoricalStatistics>>
+        fun getHistoricalStatistics(lastDays: String) : Single<HistoricalStatistics>
 }

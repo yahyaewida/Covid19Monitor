@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_statistics.*
  * A simple [Fragment] subclass.
  */
 class StatisticsFragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -26,11 +27,6 @@ class StatisticsFragment : Fragment() {
         return view
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        /*Navigation.setViewNavController(statisticsBottomNavigationView,
-            requireActivity().findNavController(R.id.nav_statistics_host_fragment))*/
-    }
    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Navigation.setViewNavController(statisticsBottomNavigationView,

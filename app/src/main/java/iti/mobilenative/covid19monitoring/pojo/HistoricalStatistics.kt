@@ -3,9 +3,12 @@ package iti.mobilenative.covid19monitoring.pojo
 import com.google.gson.annotations.SerializedName
 
 data class HistoricalStatistics(
-    @SerializedName("country")
-    val country: String,
+    @SerializedName("cases")
+    val cases: Map<String, Long>,
 
-    @SerializedName("timeline")
-    val timeline: Timeline
+    @SerializedName("deaths")
+    val deaths: Map<String, Long>,
+
+    @SerializedName("recovered")
+    val recovered: Map<String, Long>
 )

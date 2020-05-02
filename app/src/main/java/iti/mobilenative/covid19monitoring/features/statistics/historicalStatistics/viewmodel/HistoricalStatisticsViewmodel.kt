@@ -11,7 +11,7 @@ class HistoricalStatisticsViewmodel : ViewModel(){
     init {
         repo = HistoricalStatisticsRepository()
     }
-    fun getHistoricalStatistics(lastDays: String): Single<List<HistoricalStatistics>> {
+    fun getHistoricalStatistics(lastDays: String): Single<HistoricalStatistics> {
         return repo.getHistoricalStatistics(lastDays)
     }
 }
