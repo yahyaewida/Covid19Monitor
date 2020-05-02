@@ -1,4 +1,4 @@
-package iti.mobilenative.covid19monitoring.pojo
+package iti.mobilenative.covid19monitoring.model.pojo
 
 import androidx.room.Embedded
 import androidx.room.Entity
@@ -53,7 +53,9 @@ data class Country(
     var tests: Long = 0,
 
     @SerializedName("testsPerOneMillion")
-    var testsPerOneMillion: Double = 0.0
+    var testsPerOneMillion: Double = 0.0,
 
+    @SerializedName("isSubscribed")
+    var isSubscribed : Boolean = false
 
 )

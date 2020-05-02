@@ -1,15 +1,14 @@
 package iti.mobilenative.covid19monitoring.features.countries.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import io.reactivex.Single
-import iti.mobilenative.covid19monitoring.features.countries.repository.CountriesRepository
-import iti.mobilenative.covid19monitoring.pojo.Country
+import iti.mobilenative.covid19monitoring.model.pojo.Country
+import iti.mobilenative.covid19monitoring.model.repository.CountriesRepository
 import javax.inject.Inject
 
 class CountriesViewModel @Inject constructor(val repository: CountriesRepository): ViewModel() {
 
-    /*fun  getCasesByAllCountries(): Single<List<Country>>{
-        return repository.getCasesByAllCountries()
+    fun  getAllCountries(): LiveData<List<Country>>{
+        return repository.getAllCountriesLocalData()
     }
-*/
 }

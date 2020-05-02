@@ -1,18 +1,21 @@
 package iti.mobilenative.covid19monitoring.features.statistics.currentStatistics.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.ViewModelProviders
-import io.reactivex.android.schedulers.AndroidSchedulers
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import iti.mobilenative.covid19monitoring.R
 import iti.mobilenative.covid19monitoring.features.statistics.currentStatistics.viewmodel.StatisticsViewModel
-import iti.mobilenative.covid19monitoring.pojo.Statistics
+import iti.mobilenative.covid19monitoring.model.pojo.Statistics
+import iti.mobilenative.covid19monitoring.utils.ViewModelProvidersFactory
+import javax.inject.Inject
 
 class StatisticsActivity : AppCompatActivity() {
     private val TAG : String? = StatisticsActivity::class.simpleName
+
+    @Inject
+    lateinit var viewModelProvidersFactory: ViewModelProvidersFactory
 
     lateinit var statisticsViewModel: StatisticsViewModel
     val compositeDisposable = CompositeDisposable()
@@ -20,7 +23,7 @@ class StatisticsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_statistics)
-        statisticsViewModel = ViewModelProviders.of(this).get(StatisticsViewModel::class.java)
+        statisticsViewModel = ViewModelProvider(this, viewModelProvidersFactory)[StatisticsViewModel::class.java]
         getStatisticsObservable()
     }
 

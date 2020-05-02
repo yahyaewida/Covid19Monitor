@@ -9,23 +9,18 @@ import io.reactivex.disposables.CompositeDisposable
 import iti.mobilenative.covid19monitoring.R
 import iti.mobilenative.covid19monitoring.dagger.modules.activity.ActivityModule
 import iti.mobilenative.covid19monitoring.features.countries.viewmodel.CountriesViewModel
-import iti.mobilenative.covid19monitoring.model.CountryDao
-import iti.mobilenative.covid19monitoring.model.SharedPreferencesHandler
-import iti.mobilenative.covid19monitoring.model.SubscriptionsDao
-import iti.mobilenative.covid19monitoring.pojo.Country
-import iti.mobilenative.covid19monitoring.pojo.Statistics
-import iti.mobilenative.covid19monitoring.services.network.retrofit.CovidApiService
+import iti.mobilenative.covid19monitoring.model.local_database.CountryDao
+import iti.mobilenative.covid19monitoring.model.local_database.SharedPreferencesHandler
+import iti.mobilenative.covid19monitoring.model.pojo.Country
+import iti.mobilenative.covid19monitoring.model.pojo.Statistics
+import iti.mobilenative.covid19monitoring.model.remote_api.CovidApiService
 import iti.mobilenative.covid19monitoring.utils.App
 import iti.mobilenative.covid19monitoring.utils.ViewModelProvidersFactory
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
-import iti.mobilenative.covid19monitoring.features.countries.repository.CountriesRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import iti.mobilenative.covid19monitoring.model.repository.CountriesRepository
 
 class MainActivity : AppCompatActivity() {
     @Inject lateinit var countryDao : CountryDao
-    @Inject lateinit var subscriptionsDao: SubscriptionsDao
     @Inject lateinit var retrofitClient : CovidApiService
     @Inject
     lateinit var viewModelProvidersFactory: ViewModelProvidersFactory
@@ -42,11 +37,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         (application as App).appComponent.provideActivity(ActivityModule(this)).inject(this)
 
-        countriesViewModel = ViewModelProviders.of(this, viewModelProvidersFactory)[CountriesViewModel::class.java]
+        countriesViewModel = ViewModelProvider(this, viewModelProvidersFactory)[CountriesViewModel::class.java]
 
 
 
-        lateinit var list : List<Country>
+        /*lateinit var list : List<Country>
 
         countriesRepository.getAllCountriesFromApi().observe(this@MainActivity, Observer {
 
@@ -60,8 +55,18 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+*/
 
 
+
+
+        sharedPreferencesHandler.getDataFromSharedPreferences().observe(this, Observer {
+            Log.i("mainactivity","Shared preferences object  is :"+ it)
+        })
+
+        countriesRepository.getAllCountriesFromApi().observe(this, Observer {
+            Log.i("mainactivity","API result  is :"+ it)
+        })
 
 
 
@@ -142,16 +147,16 @@ class MainActivity : AppCompatActivity() {
     fun changeValueAction(view: View) {
 
          statistics = Statistics(
-            updated =  counter.toLong(),
-            cases =  500+counter.toLong(),
-            deaths = 500+counter.toLong(),
-            recovered = 500+counter.toLong(),
-            active = 500+counter.toLong(),
-            critical = 500+counter.toLong(),
-            affectedCountries = 500+counter,
-            todayCases = 500+counter.toLong(),
-            todayDeaths = 500+counter.toLong()
-        )
+             updated = counter.toLong(),
+             cases = 500 + counter.toLong(),
+             deaths = 500 + counter.toLong(),
+             recovered = 500 + counter.toLong(),
+             active = 500 + counter.toLong(),
+             critical = 500 + counter.toLong(),
+             affectedCountries = 500 + counter,
+             todayCases = 500 + counter.toLong(),
+             todayDeaths = 500 + counter.toLong()
+         )
        sharedPreferencesHandler.writeInSharedPreferences( statistics)
         counter++
     }

@@ -6,6 +6,9 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import iti.mobilenative.covid19monitoring.dagger.scopes.ViewModelKey
 import iti.mobilenative.covid19monitoring.features.countries.viewmodel.CountriesViewModel
+import iti.mobilenative.covid19monitoring.features.selectedCountries.viewmodel.SubscribedCountriesViewModel
+import iti.mobilenative.covid19monitoring.features.statistics.currentStatistics.viewmodel.StatisticsViewModel
+import iti.mobilenative.covid19monitoring.features.statistics.historicalStatistics.viewmodel.HistoricalStatisticsViewmodel
 
 
 @Module
@@ -13,5 +16,23 @@ abstract class ViewModelProvider {
     @Binds
     @IntoMap
     @ViewModelKey(CountriesViewModel::class)
-    internal abstract fun loginViewModel(viewModel: CountriesViewModel): ViewModel
+    internal abstract fun countriesViewModel(viewModel: CountriesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(StatisticsViewModel::class)
+    internal abstract fun statisticsViewModel(viewModel: StatisticsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(HistoricalStatisticsViewmodel::class)
+    internal abstract fun historicalStatisticsViewmodel(viewModel: HistoricalStatisticsViewmodel): ViewModel
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SubscribedCountriesViewModel::class)
+    internal abstract fun selectedCountriesViewModel(viewModel: SubscribedCountriesViewModel): ViewModel
+
+
 }

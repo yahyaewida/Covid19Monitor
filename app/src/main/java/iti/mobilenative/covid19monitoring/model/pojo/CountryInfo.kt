@@ -1,10 +1,10 @@
-package iti.mobilenative.covid19monitoring.pojo
+package iti.mobilenative.covid19monitoring.model.pojo
 
 import com.google.gson.annotations.SerializedName
 
 data class CountryInfo(
     @SerializedName("_id")
-    var _id: Long = 0,
+    var id: Long = 0,
 
     @SerializedName("lat")
     var lat: Double = 0.0,

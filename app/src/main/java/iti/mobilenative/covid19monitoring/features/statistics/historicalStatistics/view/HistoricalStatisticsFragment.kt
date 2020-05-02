@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -16,13 +18,14 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import iti.mobilenative.covid19monitoring.R
+import iti.mobilenative.covid19monitoring.dagger.modules.activity.ActivityModule
 import iti.mobilenative.covid19monitoring.features.statistics.historicalStatistics.viewmodel.HistoricalStatisticsViewmodel
-import iti.mobilenative.covid19monitoring.pojo.HistoricalStatistics
+import iti.mobilenative.covid19monitoring.model.pojo.HistoricalStatistics
+import iti.mobilenative.covid19monitoring.utils.App
+import iti.mobilenative.covid19monitoring.utils.ViewModelProvidersFactory
 import kotlinx.android.synthetic.main.fragment_historical_statistics.*
+import javax.inject.Inject
 
 
 /**
@@ -31,7 +34,9 @@ import kotlinx.android.synthetic.main.fragment_historical_statistics.*
 class HistoricalStatisticsFragment : Fragment() {
     val TAG: String = "HStatisticsFragment"
     lateinit var historicalStatisticsViewmodel: HistoricalStatisticsViewmodel
-    val compositeDisposable = CompositeDisposable()
+
+    @Inject
+    lateinit var viewModelProvidersFactory: ViewModelProvidersFactory
 
 
     var deaths = ArrayList<Entry>()
@@ -50,26 +55,27 @@ class HistoricalStatisticsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        historicalStatisticsViewmodel = ViewModelProviders.of(this).get(HistoricalStatisticsViewmodel::class.java)
+        (activity?.application as App).appComponent.provideActivity(ActivityModule(FragmentActivity(this.id))).inject(this)
+        historicalStatisticsViewmodel = ViewModelProvider(this, viewModelProvidersFactory)[HistoricalStatisticsViewmodel::class.java]
         getHistoricalStatisticsObservable("7")
     }
     fun getHistoricalStatisticsObservable(lastDays: String){
-        val d = historicalStatisticsViewmodel.getHistoricalStatistics(lastDays)
-            .subscribeOn(Schedulers.io())
+         historicalStatisticsViewmodel.getHistoricalStatistics(lastDays)
+            .observe(requireActivity(), Observer {
+                if(it.cases.count() != 0){
+                    displayHistoricalStatistics(it)
+                }else{
+                    displayError("error in loading historical statistics")
+                }
+            })
+            /*.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(
                 {
                     displayHistoricalStatistics(it)
                 },{
                     displayError(it.message!!)
                 }
-            )
-        compositeDisposable.add(d)
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        if(!compositeDisposable.isDisposed){
-            compositeDisposable.dispose()
-        }
+            )*/
     }
 
     fun displayHistoricalStatistics(statistics: HistoricalStatistics){

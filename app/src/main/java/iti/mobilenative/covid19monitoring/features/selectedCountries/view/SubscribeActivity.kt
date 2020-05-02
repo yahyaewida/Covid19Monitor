@@ -4,19 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProviders
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import iti.mobilenative.covid19monitoring.R
-import iti.mobilenative.covid19monitoring.features.countries.viewmodel.CountriesViewModel
-import iti.mobilenative.covid19monitoring.features.selectedCountries.repository.SelectedCountriesRepository
-import iti.mobilenative.covid19monitoring.features.selectedCountries.viewmodel.SelectedCountriesViewModel
-import iti.mobilenative.covid19monitoring.pojo.Country
+import iti.mobilenative.covid19monitoring.features.selectedCountries.viewmodel.SubscribedCountriesViewModel
+import iti.mobilenative.covid19monitoring.model.pojo.Country
 
 class SubscribeActivity : AppCompatActivity() {
     private val TAG : String? = SubscribeActivity::class.simpleName
 
-    lateinit var selectedCountriesViewModel: SelectedCountriesViewModel
+    lateinit var subscribedCountriesViewModel: SubscribedCountriesViewModel
     val compositeDisposable = CompositeDisposable()
 
     val countriesList = listOf("egypt","italy")
@@ -26,7 +22,7 @@ class SubscribeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_subscribe)
-        selectedCountriesViewModel = ViewModelProviders.of(this).get(SelectedCountriesViewModel::class.java)
+        subscribedCountriesViewModel = ViewModelProviders.of(this).get(SubscribedCountriesViewModel::class.java)
         getSelectedCountriesObservable(countriesParam)
         getSelectedCountryObservable(countryParam)
         Log.i(TAG,countriesParam)

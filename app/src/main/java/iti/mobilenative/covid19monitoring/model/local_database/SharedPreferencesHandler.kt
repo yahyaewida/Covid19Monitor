@@ -1,33 +1,29 @@
-package iti.mobilenative.covid19monitoring.model
+package iti.mobilenative.covid19monitoring.model.local_database
 
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
-import io.reactivex.Observable
-import io.reactivex.subjects.BehaviorSubject
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import iti.mobilenative.covid19monitoring.dagger.scopes.ApplicationScope
-import iti.mobilenative.covid19monitoring.pojo.Statistics
+import iti.mobilenative.covid19monitoring.model.pojo.Statistics
 import iti.mobilenative.covid19monitoring.utils.*
 import javax.inject.Inject
 
 @ApplicationScope
 class SharedPreferencesHandler @Inject constructor(var sharedPreferences: SharedPreferences){
 
-    private lateinit var sharedPreferencesDataObservable: BehaviorSubject<SharedPreferences>
-
+    private var sharedPreferencesLiveData = MutableLiveData<Statistics>()
 
     private val changeListenerSharedPreferences = OnSharedPreferenceChangeListener { sharedPreferences, _ ->
-
-        sharedPreferencesDataObservable.onNext(sharedPreferences)
-
+        sharedPreferencesLiveData.postValue(prepareObjectForReading(sharedPreferences))
     }
 
     init {
         sharedPreferences.registerOnSharedPreferenceChangeListener(changeListenerSharedPreferences)
-        sharedPreferencesDataObservable = BehaviorSubject.createDefault(sharedPreferences)
     }
 
-    fun getDataFromSharedPreferences() : Observable<Statistics>{
-        return sharedPreferencesDataObservable.map {prepareObjectForReading(it) }
+    fun getDataFromSharedPreferences() : LiveData<Statistics>{
+        return sharedPreferencesLiveData
     }
 
     fun unregisterListener(){
@@ -49,18 +45,18 @@ class SharedPreferencesHandler @Inject constructor(var sharedPreferences: Shared
         editor.apply()
     }
 
-    private fun prepareObjectForReading(sharedPreferences: SharedPreferences) : Statistics{
+    private fun prepareObjectForReading(sharedPreferences: SharedPreferences) : Statistics {
 
         return Statistics(
-            updated =  sharedPreferences.getLong(UPDATED_KEY_SP,0),
-            cases =  sharedPreferences.getLong(CASES_KEY_SP,0),
-            deaths = sharedPreferences.getLong(DEATHS_KEY_SP,0),
-            recovered = sharedPreferences.getLong(RECOVERED_KEY_SP,0),
-            active = sharedPreferences.getLong(ACTIVE_KEY_SP,0),
-            critical = sharedPreferences.getLong(CRITICAL_KEY_SP,0),
-            todayCases = sharedPreferences.getLong(TODAY_CASES_KEY_SP,0),
-            todayDeaths = sharedPreferences.getLong(TODAY_DEATHS_KEY_SP,0),
-            affectedCountries = sharedPreferences.getInt(AFFECTED_COUNTRIES_KEY_SP,0)
+            updated = sharedPreferences.getLong(UPDATED_KEY_SP, 0),
+            cases = sharedPreferences.getLong(CASES_KEY_SP, 0),
+            deaths = sharedPreferences.getLong(DEATHS_KEY_SP, 0),
+            recovered = sharedPreferences.getLong(RECOVERED_KEY_SP, 0),
+            active = sharedPreferences.getLong(ACTIVE_KEY_SP, 0),
+            critical = sharedPreferences.getLong(CRITICAL_KEY_SP, 0),
+            todayCases = sharedPreferences.getLong(TODAY_CASES_KEY_SP, 0),
+            todayDeaths = sharedPreferences.getLong(TODAY_DEATHS_KEY_SP, 0),
+            affectedCountries = sharedPreferences.getInt(AFFECTED_COUNTRIES_KEY_SP, 0)
         )
     }
 }

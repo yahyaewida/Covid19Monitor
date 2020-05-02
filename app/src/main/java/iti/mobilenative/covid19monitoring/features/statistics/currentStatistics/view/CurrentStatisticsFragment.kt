@@ -4,23 +4,25 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-
 import iti.mobilenative.covid19monitoring.R
+import iti.mobilenative.covid19monitoring.dagger.modules.activity.ActivityModule
 import iti.mobilenative.covid19monitoring.features.statistics.currentStatistics.viewmodel.StatisticsViewModel
-import iti.mobilenative.covid19monitoring.pojo.Statistics
+import iti.mobilenative.covid19monitoring.model.pojo.Statistics
+import iti.mobilenative.covid19monitoring.utils.App
+import iti.mobilenative.covid19monitoring.utils.ViewModelProvidersFactory
 import kotlinx.android.synthetic.main.fragment_current_statistics.*
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
@@ -28,7 +30,9 @@ import kotlinx.android.synthetic.main.fragment_current_statistics.*
 class CurrentStatisticsFragment : Fragment() {
     val TAG: String = "CStatisticsFragment"
     lateinit var currentStatisticsViewmodel: StatisticsViewModel
-    val compositeDisposable = CompositeDisposable()
+
+    @Inject
+    lateinit var viewModelProvidersFactory: ViewModelProvidersFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,28 +44,21 @@ class CurrentStatisticsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //createPieChart()
-        currentStatisticsViewmodel = ViewModelProviders.of(this).get(StatisticsViewModel::class.java)
-        getStatisticsObservable()
+        (activity?.application as App).appComponent.provideActivity(ActivityModule(FragmentActivity(this.id))).inject(this)
+        currentStatisticsViewmodel = ViewModelProvider(this, viewModelProvidersFactory)[StatisticsViewModel::class.java]
+        getStatistics()
     }
-    fun getStatisticsObservable(){
-        val d = currentStatisticsViewmodel.getStatistics()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe(
-                {
-                   displayStatistics(it)
-                },{
-                    displayError(it.message!!)
+    fun getStatistics(){
+        currentStatisticsViewmodel.getStatistics()
+            .observe(requireActivity(), Observer {
+                if(it.updated != 0.toLong()){
+                    displayStatistics(it)
+                }else{
+                    displayError("error in loading statistics")
                 }
-            )
-        compositeDisposable.add(d)
+            })
     }
-    override fun onDestroy() {
-        super.onDestroy()
-        if(!compositeDisposable.isDisposed){
-            compositeDisposable.dispose()
-        }
-    }
+
 
     fun displayStatistics(statistics: Statistics){
         createPieChart(statistics.deaths.toFloat(),statistics.recovered.toFloat(),statistics.active.toFloat())

@@ -6,7 +6,6 @@ import iti.mobilenative.covid19monitoring.dagger.modules.app.RetrofitModule
 import iti.mobilenative.covid19monitoring.dagger.modules.app.RoomModule
 import iti.mobilenative.covid19monitoring.dagger.modules.app.ViewModelProviderFactoryModule
 import iti.mobilenative.covid19monitoring.dagger.scopes.ApplicationScope
-import iti.mobilenative.covid19monitoring.features.countries.view.MainActivity
 import iti.mobilenative.covid19monitoring.utils.App
 
 

@@ -1,17 +1,15 @@
 package iti.mobilenative.covid19monitoring.features.statistics.currentStatistics.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import io.reactivex.Single
-import iti.mobilenative.covid19monitoring.features.statistics.currentStatistics.repository.StatisticsRepository
-import iti.mobilenative.covid19monitoring.pojo.Statistics
+import iti.mobilenative.covid19monitoring.model.pojo.Statistics
+import iti.mobilenative.covid19monitoring.model.repository.CountriesRepository
+import javax.inject.Inject
 
-class StatisticsViewModel :ViewModel(){
+class StatisticsViewModel @Inject constructor(val countriesRepository: CountriesRepository) :ViewModel(){
 
-    var repo : StatisticsRepository
-    init {
-        repo = StatisticsRepository()
+
+    fun getStatistics(): LiveData<Statistics> {
+        return countriesRepository.getStatisticsFromApi()
     }
-    /*fun getStatistics(): Single<Statistics> {
-        return repo.getStatistics()
-    }*/
 }

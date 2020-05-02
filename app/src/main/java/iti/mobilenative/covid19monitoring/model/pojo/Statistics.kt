@@ -1,4 +1,4 @@
-package iti.mobilenative.covid19monitoring.pojo
+package iti.mobilenative.covid19monitoring.model.pojo
 
 import com.google.gson.annotations.SerializedName
 
