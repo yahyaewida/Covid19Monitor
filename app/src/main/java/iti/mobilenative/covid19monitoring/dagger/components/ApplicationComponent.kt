@@ -5,13 +5,15 @@ import iti.mobilenative.covid19monitoring.dagger.modules.activity.ActivityModule
 import iti.mobilenative.covid19monitoring.dagger.modules.app.RetrofitModule
 import iti.mobilenative.covid19monitoring.dagger.modules.app.RoomModule
 import iti.mobilenative.covid19monitoring.dagger.modules.app.ViewModelProviderFactoryModule
+import iti.mobilenative.covid19monitoring.dagger.modules.app.WorkerManagerModule
 import iti.mobilenative.covid19monitoring.dagger.scopes.ApplicationScope
 import iti.mobilenative.covid19monitoring.utils.App
 
 
 @ApplicationScope
-@Component(modules = [RetrofitModule::class, RoomModule::class, ViewModelProviderFactoryModule::class])
+@Component(modules = [RetrofitModule::class, RoomModule::class, ViewModelProviderFactoryModule::class,WorkerManagerModule::class])
 interface ApplicationComponent {
     fun provideActivity(activityModule : ActivityModule) : ActivityComponent
     fun inject(app:App)
+
 }

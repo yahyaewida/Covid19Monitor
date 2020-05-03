@@ -23,6 +23,9 @@ class SharedPreferencesHandler @Inject constructor(var sharedPreferences: Shared
     }
 
     fun getDataFromSharedPreferences() : LiveData<Statistics>{
+        if(sharedPreferencesLiveData.value == null){
+            sharedPreferencesLiveData.postValue(prepareObjectForReading(sharedPreferences))
+        }
         return sharedPreferencesLiveData
     }
 

@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModelProvider
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import io.reactivex.disposables.CompositeDisposable
 import iti.mobilenative.covid19monitoring.R
 import iti.mobilenative.covid19monitoring.dagger.modules.activity.ActivityModule
@@ -14,10 +16,11 @@ import iti.mobilenative.covid19monitoring.model.local_database.SharedPreferences
 import iti.mobilenative.covid19monitoring.model.pojo.Country
 import iti.mobilenative.covid19monitoring.model.pojo.Statistics
 import iti.mobilenative.covid19monitoring.model.remote_api.CovidApiService
+import iti.mobilenative.covid19monitoring.model.repository.CountriesRepository
+import iti.mobilenative.covid19monitoring.model.workmanager.CountriesWorker
 import iti.mobilenative.covid19monitoring.utils.App
 import iti.mobilenative.covid19monitoring.utils.ViewModelProvidersFactory
 import javax.inject.Inject
-import iti.mobilenative.covid19monitoring.model.repository.CountriesRepository
 
 class MainActivity : AppCompatActivity() {
     @Inject lateinit var countryDao : CountryDao
@@ -59,7 +62,11 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
+        /*
+        countriesRepository.getAllSubscribedCountries().observe(this, Observer {
+            Log.i("mainactivity","subscribed countries are :"+ it)
+            Log.i("mainactivity","subscribed countries size is :"+ it.size)
+        })
         sharedPreferencesHandler.getDataFromSharedPreferences().observe(this, Observer {
             Log.i("mainactivity","Shared preferences object  is :"+ it)
         })
@@ -68,14 +75,19 @@ class MainActivity : AppCompatActivity() {
             Log.i("mainactivity","API result  is :"+ it)
         })
 
+        countriesRepository.getAllCountriesLocalData()
+            .observe(this, Observer {
+                Log.i("mainactivity","LocalDB  result  is :"+ it)
+            })
+*/
 
 
-       /* countriesRepository.getCasesByAllCountries().observe(this, Observer {
+        /* countriesRepository.getCasesByAllCountries().observe(this, Observer {
 
-            it.forEach {
-            Log.i("mainactivity","country  is :"+ it)
-        }
-        })*/
+             it.forEach {
+             Log.i("mainactivity","country  is :"+ it)
+         }
+         })*/
 
         /*subscriptionsDao.insertNewSubscription(Subscriptions("Egypt"))
         subscriptionsDao.insertNewSubscription(Subscriptions("Italy"))
@@ -145,6 +157,10 @@ class MainActivity : AppCompatActivity() {
     var counter =0
     lateinit var statistics : Statistics
     fun changeValueAction(view: View) {
+
+        val uploadWorkRequest = OneTimeWorkRequestBuilder<CountriesWorker>()
+            .build()
+        WorkManager.getInstance(this).enqueue(uploadWorkRequest)
 
          statistics = Statistics(
              updated = counter.toLong(),
