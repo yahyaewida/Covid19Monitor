@@ -14,6 +14,5 @@ const val TODAY_CASES_KEY_SP = "today_cases_key"
 const val TODAY_DEATHS_KEY_SP = "today_deaths_key"
 const val AFFECTED_COUNTRIES_KEY_SP ="affected_countries_key"
 const val COUNTRY_TABLE_NAME="countryTable"
-const val SUBSCRIPTIONS_TABLE_NAME = "subscriptionsTable"
-
+const val WORK_MANAGER_TAG = "workManagerKey"
 

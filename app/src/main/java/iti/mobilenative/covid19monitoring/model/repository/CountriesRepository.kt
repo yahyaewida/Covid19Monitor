@@ -16,12 +16,11 @@ import javax.inject.Inject
 class CountriesRepository @Inject constructor(val retrofit : CovidApiService) {
     @Inject lateinit var countryDao : CountryDao
 
+
     //API functions
 
-    fun getAllCountriesFromApi(): LiveData<List<Country>>{
-        return liveData(Dispatchers.IO) {
-            emit(retrofit.getCasesByAllCountries())
-        }
+    suspend fun getAllCountriesFromApi() : List<Country>{
+        return retrofit.getCasesByAllCountries()
     }
 
     fun getSpecificCountriesData(countriesSeparatedByCommas  : String): LiveData<List<Country>>{
@@ -52,11 +51,16 @@ class CountriesRepository @Inject constructor(val retrofit : CovidApiService) {
         }
     }
 
-    fun getAllSubscribedCountries(): LiveData<List<Country>>{
+    fun getAllSubscribedCountriesObservable(): LiveData<List<Country>>{
         return liveData(Dispatchers.IO) {
-            emitSource( countryDao.getAllSubscribedCountries())
+            emitSource( countryDao.getAllSubscribedCountriesObservable())
         }
     }
+
+    fun getAllSubscribedCountries() :List<Country> {
+        return countryDao.getAllSubscribedCountries()
+    }
+
 
     fun insertAllCountries(countriesList: List<Country>){
         CoroutineScope(Dispatchers.IO).launch {

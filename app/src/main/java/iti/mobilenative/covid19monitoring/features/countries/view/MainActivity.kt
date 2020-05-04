@@ -5,8 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
+import androidx.work.*
 import io.reactivex.disposables.CompositeDisposable
 import iti.mobilenative.covid19monitoring.R
 import iti.mobilenative.covid19monitoring.dagger.modules.activity.ActivityModule
@@ -20,6 +19,8 @@ import iti.mobilenative.covid19monitoring.model.repository.CountriesRepository
 import iti.mobilenative.covid19monitoring.model.workmanager.CountriesWorker
 import iti.mobilenative.covid19monitoring.utils.App
 import iti.mobilenative.covid19monitoring.utils.ViewModelProvidersFactory
+import iti.mobilenative.covid19monitoring.utils.WORK_MANAGER_TAG
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var countriesViewModel: CountriesViewModel
     @Inject
     lateinit var sharedPreferencesHandler: SharedPreferencesHandler
+
 
     @Inject
     lateinit var countriesRepository: CountriesRepository
@@ -60,26 +62,69 @@ class MainActivity : AppCompatActivity() {
         })
 */
 
+        setupWorkManagerTest()
 
+        /*countriesRepository.getAllCountriesLocalData().observe(this, Observer {
+            it.filter {
+                it.isSubscribed
+            }
+                .forEach {
+                    Log.i("mainactivity","Subscribed to  :"+ it.country)
+                }
+        })*/
+        /*countriesRepository.subscribeToCountry("Egypt")
+        countriesRepository.subscribeToCountry("Italy")
+        countriesRepository.subscribeToCountry("France")*/
+       /* countriesRepository.getAllCountriesLocalData()
+            .observe(this, Observer {
+                Log.i("mainactivity","LocalDB  result  is :"+ it)
+                Log.i("mainactivity","LocalDB  size  is :"+ it.size)
+            })*/
 
-        /*
-        countriesRepository.getAllSubscribedCountries().observe(this, Observer {
-            Log.i("mainactivity","subscribed countries are :"+ it)
-            Log.i("mainactivity","subscribed countries size is :"+ it.size)
-        })
+        /*CoroutineScope(Dispatchers.IO).launch{
+            val apiList = countriesViewModel.getAllCountriesFromApi()
+            val subscribedCountries = countriesViewModel.getAllSubscribedCountries()
+            //subscribedCountries.get(0).active = 50
+            if(subscribedCountries.count() > 0){
+                apiList.map {apiCountry ->
+                    subscribedCountries.forEach {subscribedCountry ->
+                        if(apiCountry.country == subscribedCountry.country){
+                            apiCountry.isSubscribed = true
+                        }
+                    }
+                }
+                val subscribedCountriesFromApi = apiList.filter { it.isSubscribed }
+                subscribedCountriesFromApi.forEachIndexed { index, country ->
+                    if(country.cases != subscribedCountries.get(index).cases || country.active != subscribedCountries.get(index).active  || country.recovered != subscribedCountries.get(index).recovered ){
+                        Log.i("mainactivity","Data changed  For country  :"+ country.country)
+                    }
+                }
+                Log.i("mainactivity","Comparison Ended  ")
+            }
+
+            countriesRepository.insertAllCountries(apiList)
+            Log.i("mainactivity","Rows inserted :  "+apiList.size)
+
+            //Need to get Statistics and historical statistics then update DB and shared preferences
+        }
+*/
+
+/*
         sharedPreferencesHandler.getDataFromSharedPreferences().observe(this, Observer {
             Log.i("mainactivity","Shared preferences object  is :"+ it)
         })
 
-        countriesRepository.getAllCountriesFromApi().observe(this, Observer {
-            Log.i("mainactivity","API result  is :"+ it)
+        countriesRepository.getAllSubscribedCountries().observe(this, Observer {
+            Log.i("mainactivity","subscribed countries are :"+ it)
+            Log.i("mainactivity","subscribed countries size is :"+ it.size)
         })
+
+
 
         countriesRepository.getAllCountriesLocalData()
             .observe(this, Observer {
                 Log.i("mainactivity","LocalDB  result  is :"+ it)
-            })
-*/
+            })*/
 
 
         /* countriesRepository.getCasesByAllCountries().observe(this, Observer {
@@ -158,10 +203,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var statistics : Statistics
     fun changeValueAction(view: View) {
 
-        val uploadWorkRequest = OneTimeWorkRequestBuilder<CountriesWorker>()
-            .build()
-        WorkManager.getInstance(this).enqueue(uploadWorkRequest)
-
          statistics = Statistics(
              updated = counter.toLong(),
              cases = 500 + counter.toLong(),
@@ -197,7 +238,35 @@ class MainActivity : AppCompatActivity() {
 
     }*/
 
+    fun setupWorkManagerTest(){
+        val fetchDataRequest = OneTimeWorkRequestBuilder<CountriesWorker>()
+            .build()
+        WorkManager.getInstance(this).enqueue(fetchDataRequest)
+    }
+    fun setupWorkManager(){
 
+        val request = PeriodicWorkRequestBuilder<CountriesWorker>(2, TimeUnit.HOURS)
+            .setConstraints(getWorkManagerConstraints())
+            .build()
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(WORK_MANAGER_TAG, ExistingPeriodicWorkPolicy.KEEP, request)
+
+        WorkManager.getInstance(this).getWorkInfosByTag(WORK_MANAGER_TAG).get().get(0)
+    }
+
+
+    fun editWorkManager(){
+
+        val request = PeriodicWorkRequestBuilder<CountriesWorker>(20, TimeUnit.SECONDS)
+            .setConstraints(getWorkManagerConstraints())
+            .build()
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(WORK_MANAGER_TAG, ExistingPeriodicWorkPolicy.REPLACE, request)
+    }
+
+    private fun getWorkManagerConstraints() : Constraints{
+        return  Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+    }
 
 
 

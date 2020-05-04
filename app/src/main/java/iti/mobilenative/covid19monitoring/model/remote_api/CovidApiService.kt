@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface CovidApiService {
 
-    @GET("countries")
+    @GET("countries?sort=cases")
     suspend fun getCasesByAllCountries() : List<Country>
 
     @GET("countries/{countries}")

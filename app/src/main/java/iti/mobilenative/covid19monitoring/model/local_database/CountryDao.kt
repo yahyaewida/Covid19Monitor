@@ -12,7 +12,10 @@ interface CountryDao {
     fun getAllCountries() : LiveData<List<Country>>
 
     @Query("SELECT * FROM countryTable where isSubscribed = 1")
-    fun getAllSubscribedCountries() : LiveData<List<Country>>
+    fun getAllSubscribedCountriesObservable() : LiveData<List<Country>>
+
+    @Query("SELECT * FROM countryTable where isSubscribed = 1")
+    fun getAllSubscribedCountries() : List<Country>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllCountries(countriesList: List<Country>)
@@ -28,4 +31,5 @@ interface CountryDao {
 
     @Update
     suspend fun updateCountry(country : Country)
+
 }
