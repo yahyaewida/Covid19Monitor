@@ -103,9 +103,7 @@ class CurrentStatisticsFragment : Fragment() {
         pieChart.getLegend().typeface = Typeface.DEFAULT_BOLD
         pieChart.getLegend().formSize = 16.0f
         val colors = ArrayList<Int>()
-        /*for (c in ColorTemplate.VORDIPLOM_COLORS){
-            colors.add(c)
-        }*/
+
         colors.add(Color.rgb(255,153,148))
         colors.add(Color.rgb(160,231,160))
         colors.add(Color.rgb(255, 247, 140))
@@ -116,5 +114,6 @@ class CurrentStatisticsFragment : Fragment() {
 
         data.setValueFormatter(PercentFormatter())
         pieChart.data= data
+        pieChart.invalidate()
     }
 }
