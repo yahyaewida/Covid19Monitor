@@ -36,11 +36,6 @@ class CountriesWorker @Inject constructor(
         val apiList = countriesRepository.getAllCountriesFromApi()
         val subscribedCountries = countriesRepository.getAllSubscribedCountries()
 
-        subscribedCountries.get(0).active = 100200 //21
-        subscribedCountries.get(0).deaths = 28900 // 16
-        subscribedCountries.get(0).recovered = 81700 // 46
-
-
         if(subscribedCountries.count() > 0){
 
             updateApiCountriesWithSubscribedCountries(apiList,subscribedCountries)
@@ -76,17 +71,19 @@ class CountriesWorker @Inject constructor(
 
         val subscribedCountriesFromApi = apiList.filter { it.isSubscribed }
 
-        subscribedCountriesFromApi.forEachIndexed { index, country ->
-            if(country.cases != subscribedCountries.get(index).cases || country.active != subscribedCountries.get(index).active  || country.recovered != subscribedCountries.get(index).recovered ){
-                Log.i("mainactivity","Data changed  For country  :"+ country.country)
+        subscribedCountriesFromApi.forEach {apiCountry ->
+            subscribedCountries.forEach {localCountry ->
+                if(apiCountry.country == localCountry.country){
+                    if(apiCountry.active != localCountry.active  || apiCountry.recovered != localCountry.recovered ){
+                        Log.i("mainactivity","Data changed  For country  :"+ apiCountry.country)
 
-                //change condition values
+                        apiCountry.active =  if ( apiCountry.active - localCountry.active  > 0 )   apiCountry.active - localCountry.active else 0
+                        apiCountry.recovered = if(apiCountry.recovered - localCountry.recovered  > 0) apiCountry.recovered - localCountry.recovered  else 0
+                        apiCountry.deaths =  if( apiCountry.deaths - localCountry.deaths  >0 ) apiCountry.deaths  - localCountry.deaths else 0
 
-                country.active =  if ( country.active - subscribedCountries[index].active  > 0 )   country.active - subscribedCountries[index].active else 0
-                country.recovered = if(country.recovered - subscribedCountries[index].recovered  > 0) country.recovered - subscribedCountries[index].recovered  else 0
-                country.deaths =  if( country.deaths - subscribedCountries[index].deaths  >0 ) country.deaths  - subscribedCountries[index].deaths else 0
-
-                resultList.add(country)
+                        resultList.add(apiCountry)
+                    }
+                }
             }
         }
         return resultList
@@ -97,7 +94,19 @@ class CountriesWorker @Inject constructor(
         var content = ""
 
         notifiedCountryList.forEach {
-            content += it.country +" , "
+
+            content += it.country +"-> "
+            if(it.active > 0 ){
+                content += "active : "+ it.cases
+            }
+            if(it.recovered > 0){
+                content += " , recovered : " +it.recovered
+            }
+            if(it.deaths > 0){
+                content += " , deaths : " +it.deaths
+            }
+
+            content += "\n"
         }
 
         val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

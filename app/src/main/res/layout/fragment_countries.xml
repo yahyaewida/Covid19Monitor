@@ -6,13 +6,156 @@
     android:layout_height="match_parent"
     tools:context=".features.countries.view.CountriesFragment">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:weightSum="3"
+        app:cardBackgroundColor="#6A7DE4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fadingEdgeLength="30dp"
+            android:orientation="vertical"
+            android:weightSum="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/WorldWideStatistics"
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_background"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Confirmed"
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_background"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Recovered"
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_background"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Deaths"
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_background"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#6A7DE4"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/confirmedCasesTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_background"
+                    android:textSize="20sp"
+                    tools:text="3345000" />
+
+                <TextView
+                    android:id="@+id/recoveredCasesTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_background"
+                    android:textSize="20sp"
+                    tools:text="2000000" />
+
+                <TextView
+                    android:id="@+id/deathsCasesTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/design_default_color_background"
+                    android:textSize="20sp"
+                    tools:text="65000" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
     <TextView
+        android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Countries Fragment"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/CountriesStatistics"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/countriesRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

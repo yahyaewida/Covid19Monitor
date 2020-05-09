@@ -7,7 +7,7 @@ import iti.mobilenative.covid19monitoring.dagger.modules.activity.ViewModelProvi
 import iti.mobilenative.covid19monitoring.dagger.scopes.ActivityScope
 import iti.mobilenative.covid19monitoring.features.countries.view.CountriesFragment
 import iti.mobilenative.covid19monitoring.features.countries.view.MainActivity
-import iti.mobilenative.covid19monitoring.features.selectedCountries.view.SubscribedCountriesFragment
+import iti.mobilenative.covid19monitoring.features.subscribed_countries.view.SubscribedCountriesFragment
 import iti.mobilenative.covid19monitoring.features.statistics.StatisticsFragment
 import iti.mobilenative.covid19monitoring.features.statistics.currentStatistics.view.CurrentStatisticsFragment
 import iti.mobilenative.covid19monitoring.features.statistics.historicalStatistics.view.HistoricalStatisticsFragment

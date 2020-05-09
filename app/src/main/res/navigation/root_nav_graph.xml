@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_countries" />
     <fragment
         android:id="@+id/selectedCountriesFragment"
-        android:name="iti.mobilenative.covid19monitoring.features.selectedCountries.view.SubscribedCountriesFragment"
+        android:name="iti.mobilenative.covid19monitoring.features.subscribed_countries.view.SubscribedCountriesFragment"
         android:label="fragment_selected_countries"
         tools:layout="@layout/fragment_subscribed_countries" />
     <fragment

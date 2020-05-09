@@ -23,6 +23,9 @@ interface CountryDao {
     @Query("update countryTable set isSubscribed = 1 where country = :countryName")
     suspend fun subscribeToCountry(countryName :String)
 
+    @Query("update countryTable set isSubscribed = 0 where country = :countryName")
+    suspend fun unsubscribeFromCountry(countryName :String)
+
     @Query("DELETE FROM countryTable WHERE country = :countryName")
     suspend fun deleteCountry(countryName :String)
 

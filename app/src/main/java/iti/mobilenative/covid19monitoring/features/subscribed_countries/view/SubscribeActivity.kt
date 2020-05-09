@@ -1,12 +1,12 @@
-package iti.mobilenative.covid19monitoring.features.selectedCountries.view
+package iti.mobilenative.covid19monitoring.features.subscribed_countries.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import io.reactivex.disposables.CompositeDisposable
 import iti.mobilenative.covid19monitoring.R
-import iti.mobilenative.covid19monitoring.features.selectedCountries.viewmodel.SubscribedCountriesViewModel
+import iti.mobilenative.covid19monitoring.features.subscribed_countries.viewmodel.SubscribedCountriesViewModel
 import iti.mobilenative.covid19monitoring.model.pojo.Country
 
 class SubscribeActivity : AppCompatActivity() {

@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import iti.mobilenative.covid19monitoring.dagger.scopes.ViewModelKey
 import iti.mobilenative.covid19monitoring.features.countries.viewmodel.CountriesViewModel
-import iti.mobilenative.covid19monitoring.features.selectedCountries.viewmodel.SubscribedCountriesViewModel
+import iti.mobilenative.covid19monitoring.features.subscribed_countries.viewmodel.SubscribedCountriesViewModel
 import iti.mobilenative.covid19monitoring.features.statistics.currentStatistics.viewmodel.StatisticsViewModel
 import iti.mobilenative.covid19monitoring.features.statistics.historicalStatistics.viewmodel.HistoricalStatisticsViewmodel
 

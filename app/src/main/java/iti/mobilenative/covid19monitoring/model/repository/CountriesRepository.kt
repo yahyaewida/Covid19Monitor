@@ -74,6 +74,13 @@ class CountriesRepository @Inject constructor(val retrofit : CovidApiService) {
         }
     }
 
+    fun unsubscribeFromCountry(countryName :String){
+        CoroutineScope(Dispatchers.IO).launch {
+            countryDao.unsubscribeFromCountry(countryName)
+        }
+    }
+
+
     fun deleteCountry(countryName :String){
         CoroutineScope(Dispatchers.IO).launch {
             countryDao.deleteCountry(countryName)

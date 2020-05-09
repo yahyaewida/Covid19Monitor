@@ -62,8 +62,13 @@ class MainActivity : AppCompatActivity() {
         })
 */
 
-        setupWorkManagerTest()
+        //setupWorkManagerTest()
 
+        //setupWorkManager()
+        /*countriesRepository.subscribeToCountry("USA")
+        countriesRepository.subscribeToCountry("Egypt")
+        countriesRepository.subscribeToCountry("Italy")
+        countriesRepository.subscribeToCountry("France")*/
         /*countriesRepository.getAllCountriesLocalData().observe(this, Observer {
             it.filter {
                 it.isSubscribed
@@ -245,12 +250,12 @@ class MainActivity : AppCompatActivity() {
     }
     fun setupWorkManager(){
 
-        val request = PeriodicWorkRequestBuilder<CountriesWorker>(2, TimeUnit.HOURS)
+        val request = PeriodicWorkRequestBuilder<CountriesWorker>(15, TimeUnit.MINUTES)
+            //.setInitialDelay(15,TimeUnit.MINUTES)
             .setConstraints(getWorkManagerConstraints())
             .build()
-        WorkManager.getInstance(this).enqueueUniquePeriodicWork(WORK_MANAGER_TAG, ExistingPeriodicWorkPolicy.KEEP, request)
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(WORK_MANAGER_TAG, ExistingPeriodicWorkPolicy.REPLACE, request)
 
-        WorkManager.getInstance(this).getWorkInfosByTag(WORK_MANAGER_TAG).get().get(0)
     }
 
 
