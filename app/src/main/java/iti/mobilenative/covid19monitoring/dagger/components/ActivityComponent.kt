@@ -1,7 +1,7 @@
 package iti.mobilenative.covid19monitoring.dagger.components
 
 import dagger.Subcomponent
-import iti.mobilenative.covid19monitoring.HomeActivity
+import iti.mobilenative.covid19monitoring.features.HomeActivity
 import iti.mobilenative.covid19monitoring.dagger.modules.activity.ActivityModule
 import iti.mobilenative.covid19monitoring.dagger.modules.activity.ViewModelProvider
 import iti.mobilenative.covid19monitoring.dagger.scopes.ActivityScope

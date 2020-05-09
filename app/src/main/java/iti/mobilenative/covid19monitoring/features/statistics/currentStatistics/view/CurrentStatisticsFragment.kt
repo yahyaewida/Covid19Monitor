@@ -46,6 +46,7 @@ class CurrentStatisticsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity?.application as App).appComponent.provideActivity(ActivityModule(FragmentActivity(this.id))).inject(this)
         currentStatisticsViewmodel = ViewModelProvider(this, viewModelProvidersFactory)[StatisticsViewModel::class.java]
+
         getStatistics()
     }
     fun getStatistics(){
@@ -75,45 +76,48 @@ class CurrentStatisticsFragment : Fragment() {
     }
 
     fun createPieChart(deaths: Float,recovered: Float,active: Float){
-        pieChart.setUsePercentValues(true)
-        pieChart.getDescription().setEnabled(false)
-        pieChart.setExtraOffsets(5.0f,10.0f,5.0f,5.0f)
-        pieChart.dragDecelerationFrictionCoef = 0.99f
-        pieChart.setHoleColor(Color.WHITE)
-        pieChart.transparentCircleRadius = 61.0f
+        if(pieChart!=null){
+            pieChart.setUsePercentValues(true)
+            pieChart.getDescription().setEnabled(false)
+            pieChart.setExtraOffsets(5.0f,10.0f,5.0f,5.0f)
+            pieChart.dragDecelerationFrictionCoef = 0.99f
+            pieChart.setHoleColor(Color.WHITE)
+            pieChart.transparentCircleRadius = 61.0f
 
-        val list = mutableListOf<PieEntry>()
-        list.add(PieEntry(deaths,"deaths"))
-        list.add(PieEntry(recovered,"recovered"))
-        list.add(PieEntry(active,"active"))
+            val list = mutableListOf<PieEntry>()
+            list.add(PieEntry(deaths,"deaths"))
+            list.add(PieEntry(recovered,"recovered"))
+            list.add(PieEntry(active,"active"))
 
-        val dataSet = PieDataSet(list,"cases")
-        dataSet.sliceSpace = 3.0f
-        dataSet.selectionShift = 5.0f
+            val dataSet = PieDataSet(list,"cases")
+            dataSet.sliceSpace = 3.0f
+            dataSet.selectionShift = 5.0f
 
-        val percentValuesClr = ArrayList<Int>()
-        for(i in 1..3){
-            percentValuesClr.add(Color.rgb(255,255,255))
+            val percentValuesClr = ArrayList<Int>()
+            for(i in 1..3){
+                percentValuesClr.add(Color.rgb(255,255,255))
+            }
+            dataSet.setValueTextColors(percentValuesClr)
+            dataSet.valueTypeface = Typeface.DEFAULT_BOLD
+
+            pieChart.getLegend().setTextColor(Color.BLACK);
+            pieChart.getLegend().textSize = 14f
+            pieChart.getLegend().typeface = Typeface.DEFAULT_BOLD
+            pieChart.getLegend().formSize = 16.0f
+            val colors = ArrayList<Int>()
+
+            colors.add(Color.rgb(255,153,148))
+            colors.add(Color.rgb(160,231,160))
+            colors.add(Color.rgb(255, 247, 140))
+            dataSet.setColors(colors)
+
+            val data = PieData(dataSet)
+            data.setValueTextSize(14f)
+
+            data.setValueFormatter(PercentFormatter())
+            pieChart.data= data
+            pieChart.invalidate()
         }
-        dataSet.setValueTextColors(percentValuesClr)
-        dataSet.valueTypeface = Typeface.DEFAULT_BOLD
 
-        pieChart.getLegend().setTextColor(Color.BLACK);
-        pieChart.getLegend().textSize = 14f
-        pieChart.getLegend().typeface = Typeface.DEFAULT_BOLD
-        pieChart.getLegend().formSize = 16.0f
-        val colors = ArrayList<Int>()
-
-        colors.add(Color.rgb(255,153,148))
-        colors.add(Color.rgb(160,231,160))
-        colors.add(Color.rgb(255, 247, 140))
-        dataSet.setColors(colors)
-
-        val data = PieData(dataSet)
-        data.setValueTextSize(14f)
-
-        data.setValueFormatter(PercentFormatter())
-        pieChart.data= data
-        pieChart.invalidate()
     }
 }

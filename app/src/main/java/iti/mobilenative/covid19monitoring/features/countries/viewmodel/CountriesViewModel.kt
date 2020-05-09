@@ -17,6 +17,11 @@ class CountriesViewModel @Inject constructor(val repository: CountriesRepository
         return repository.getAllSubscribedCountries()
     }
 
+    suspend fun getAllCountriesFromApi() : List<Country>{
+        return repository.getAllCountriesFromApi()
+    }
+
+
     fun getStatistics(): LiveData<Statistics> {
         return repository.getStatisticsFromApi()
     }

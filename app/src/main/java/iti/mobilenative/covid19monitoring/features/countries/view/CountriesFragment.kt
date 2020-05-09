@@ -12,12 +12,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.*
 import iti.mobilenative.covid19monitoring.R
 import iti.mobilenative.covid19monitoring.dagger.modules.activity.ActivityModule
 import iti.mobilenative.covid19monitoring.features.countries.viewmodel.CountriesViewModel
 import iti.mobilenative.covid19monitoring.model.pojo.Country
+import iti.mobilenative.covid19monitoring.model.workmanager.CountriesWorker
 import iti.mobilenative.covid19monitoring.utils.App
 import iti.mobilenative.covid19monitoring.utils.ViewModelProvidersFactory
+import iti.mobilenative.covid19monitoring.utils.WORK_MANAGER_TAG
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 /**
@@ -28,7 +32,6 @@ class CountriesFragment : Fragment(),CommunicatorOfAdapterAndFragment {
     @Inject
     lateinit var viewModelProvidersFactory: ViewModelProvidersFactory
 
-    private var isUILoaded = false
     private lateinit var countriesList:List<Country>
     private lateinit var countriesAdapter: CountriesAdapter
 
@@ -69,16 +72,12 @@ class CountriesFragment : Fragment(),CommunicatorOfAdapterAndFragment {
             worldWideDeathsCasesTextView.text = it.deaths.toString()
         })
 
-
+        setupWorkManager()
         countriesViewModel.getAllCountries().observe(requireActivity(), Observer {
-            if(!isUILoaded){
-                isUILoaded = true
-                countriesList = it
-                countriesAdapter = CountriesAdapter(this,countriesList, context,isFromSubscribedCountries = false)
-                countriesRecyclerView.adapter = countriesAdapter
-            }
+            countriesList = it
+            countriesAdapter = CountriesAdapter(this,countriesList, context,isFromSubscribedCountries = false)
+            countriesRecyclerView.adapter = countriesAdapter
         })
-
     }
 
     override fun updateCountryList(indexOfCountry: Int, subscriptionValue : Boolean) {
@@ -88,7 +87,22 @@ class CountriesFragment : Fragment(),CommunicatorOfAdapterAndFragment {
             countriesViewModel.unsubscribeFromCountry( countriesList[indexOfCountry].country)
         }
 
-        countriesList[indexOfCountry].isSubscribed = subscriptionValue
+        //countriesList[indexOfCountry].isSubscribed = subscriptionValue
+    }
+
+    fun setupWorkManager(){
+
+        val request = PeriodicWorkRequestBuilder<CountriesWorker>(15, TimeUnit.MINUTES)
+            //.setInitialDelay(15,TimeUnit.MINUTES)
+            .setConstraints(getWorkManagerConstraints())
+            .build()
+        WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(WORK_MANAGER_TAG, ExistingPeriodicWorkPolicy.REPLACE, request)
+
+    }
+    private fun getWorkManagerConstraints() : Constraints {
+        return  Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
     }
 
 }

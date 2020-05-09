@@ -109,19 +109,22 @@ class CountriesWorker @Inject constructor(
             content += "\n"
         }
 
-        val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val channelId = "cases"
-        //If on Oreo then notification required a notification channel.
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            val  channel = NotificationChannel(channelId, "New Cases", NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
-        }
-        val notification = NotificationCompat.Builder(applicationContext, channelId)
-            .setContentTitle("Covid 19")
-            .setContentText(content)
-            .setSmallIcon(R.drawable.ic_launcher_background)
+        if(content != ""){
+            val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val channelId = "cases"
+            //If on Oreo then notification required a notification channel.
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                val  channel = NotificationChannel(channelId, "New Cases", NotificationManager.IMPORTANCE_DEFAULT);
+                notificationManager.createNotificationChannel(channel);
+            }
+            val notification = NotificationCompat.Builder(applicationContext, channelId)
+                .setContentTitle("Covid 19")
+                .setContentText(content)
+                .setSmallIcon(R.drawable.ic_launcher_background)
 
-        notificationManager.notify(1, notification.build())
+            notificationManager.notify(1, notification.build())
+
+        }
 
 
     }

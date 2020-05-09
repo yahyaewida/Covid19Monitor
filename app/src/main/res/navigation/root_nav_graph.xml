@@ -23,4 +23,11 @@
             android:id="@+id/statisticsFragment_To_statistics_nav_graph"
             app:destination="@id/statistics_nav_graph" />
     </fragment>
+
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="iti.mobilenative.covid19monitoring.features.settings.view.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
