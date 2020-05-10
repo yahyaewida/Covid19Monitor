@@ -1,17 +1,24 @@
 package iti.mobilenative.covid19monitoring.features.subscribed_countries.view
 
+import android.app.SearchManager
 import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
+import android.util.Log
+import android.view.*
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
-import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.annotation.Nullable
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
+import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +47,7 @@ class SubscribedCountriesFragment : Fragment() {
     private lateinit var subscriptionRecyclerView: RecyclerView
 
     lateinit var countriesAdapter: CountriesAdapter
+    lateinit var navController : NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -125,4 +133,47 @@ class SubscribedCountriesFragment : Fragment() {
     }
 
 
+    /*override fun onCreate(@Nullable savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater!!.inflate(R.menu.app_bar_menu, menu)
+        val searchItem: MenuItem = menu.findItem(R.id.search)
+        if (searchItem != null) {
+            val searchView = MenuItemCompat.getActionView(searchItem) as SearchView
+            val searchManager =
+                ContextCompat.getSystemService(requireContext(), SearchManager::class.java)
+            searchView.setSearchableInfo(searchManager!!.getSearchableInfo(requireActivity().componentName))
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    countriesAdapter.filter.filter(query)
+                    Toast.makeText(context, "Seach Query: " + query, Toast.LENGTH_SHORT).show()
+                    return false
+                }
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    countriesAdapter.filter.filter(newText)
+                    Toast.makeText(context, "Seach Query: " + newText, Toast.LENGTH_SHORT).show()
+                    return false
+                }
+            })
+        }
+        return super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.search) {
+            return true
+        }
+        if (item.itemId == R.id.settings) {
+            navController.navigate(R.id.settingsFragment)
+        }
+        return super.onOptionsItemSelected(item)
+    }*/
 }

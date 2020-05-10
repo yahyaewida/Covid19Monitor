@@ -15,5 +15,6 @@
     <string name="fourhours">4 hours</string>
     <string name="oneday">1 day</string>
     <string name="notifyme">Notify Me</string>
+    <string name="search_hint">Search by country name</string>
 
 </resources>
