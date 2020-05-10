@@ -30,7 +30,9 @@ class HomeActivity : AppCompatActivity() {
 
 
         navController.addOnDestinationChangedListener { navController: NavController, navDestination: NavDestination, bundle: Bundle? ->
-            if (navDestination.id == R.id.settingsFragment ||  navDestination.id == R.id.currentStatisticsFragment || navDestination.id == R.id.historicalStatisticsFragment  ) {
+            if (navDestination.id == R.id.settingsFragment ||
+                 navDestination.id == R.id.currentStatisticsFragment
+                || navDestination.id == R.id.historicalStatisticsFragment  ) {
                 bottomNavigationView.visibility = INVISIBLE
                 supportActionBar?.hide();
             } else {

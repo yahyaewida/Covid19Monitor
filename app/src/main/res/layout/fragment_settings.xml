@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".features.settings.view.SettingsFragment">
 
-    <NumberPicker
+
+    <!--<NumberPicker
         android:id="@+id/numberPicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +17,90 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />-->
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="0dp"
+        android:layout_height="243dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/notify"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textView4"
+        android:textColor="#3700B3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/notify"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f8f7ff"
+            android:padding="15dp">
+
+            <RadioButton
+                android:id="@+id/onehour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/onehour" />
+
+            <RadioButton
+                android:id="@+id/twohours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/twohours" />
+
+            <RadioButton
+                android:id="@+id/fourhours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fourhours" />
+
+            <RadioButton
+                android:id="@+id/oneday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/oneday" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/notify_btn"
+        android:textColor="#3700B3"
+        android:drawableLeft="@drawable/ic_notification"
+        android:background="@drawable/rounded_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/notifyme"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

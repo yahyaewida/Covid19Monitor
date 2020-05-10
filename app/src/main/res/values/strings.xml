@@ -8,4 +8,12 @@
     <string name="Recovered">Recovered</string>
     <string name="Deaths">Deaths</string>
     <string name="WorldWideStatistics">Worldwide Statistics</string>
+    <string name="notify">Notify me every :</string>
+    <string name="onehour">1 hour</string>
+    <string name="twohours">2 hours</string>
+    <string name="threehours">3 hours</string>
+    <string name="fourhours">4 hours</string>
+    <string name="oneday">1 day</string>
+    <string name="notifyme">Notify Me</string>
+
 </resources>

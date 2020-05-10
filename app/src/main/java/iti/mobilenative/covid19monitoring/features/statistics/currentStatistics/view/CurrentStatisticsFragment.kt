@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
@@ -24,6 +25,7 @@ import iti.mobilenative.covid19monitoring.utils.ViewModelProvidersFactory
 import kotlinx.android.synthetic.main.fragment_current_statistics.*
 import javax.inject.Inject
 
+
 /**
  * A simple [Fragment] subclass.
  */
@@ -40,6 +42,11 @@ class CurrentStatisticsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_current_statistics, container, false)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //(activity as AppCompatActivity).supportActionBar?.hide()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,7 +115,7 @@ class CurrentStatisticsFragment : Fragment() {
 
             colors.add(Color.rgb(255,153,148))
             colors.add(Color.rgb(160,231,160))
-            colors.add(Color.rgb(255, 247, 140))
+            colors.add(Color.rgb(166,221,241))
             dataSet.setColors(colors)
 
             val data = PieData(dataSet)

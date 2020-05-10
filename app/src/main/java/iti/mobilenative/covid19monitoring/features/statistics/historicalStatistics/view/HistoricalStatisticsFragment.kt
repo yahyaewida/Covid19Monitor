@@ -93,7 +93,7 @@ class HistoricalStatisticsFragment : Fragment() {
                         recoveredBarEntry: ArrayList<BarEntry>) : BarData{
 
         val casesBarSet = BarDataSet(casesBarEntry,"Cases")
-        casesBarSet.setColor(Color.rgb(255, 247, 140))
+        casesBarSet.setColor(Color.rgb(166,221,241))
 
         val deathsBarSet = BarDataSet(deathsBarEntry,"Deaths")
         deathsBarSet.setColor(Color.rgb(255,153,148))

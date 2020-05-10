@@ -7,7 +7,6 @@
     app:showAsAction="always"
     app:actionViewClass="androidx.appcompat.widget.SearchView"
     />
-
     <item android:title="Settings"
         android:id="@+id/settings"
         android:icon="@drawable/ic_settings_24dp"
