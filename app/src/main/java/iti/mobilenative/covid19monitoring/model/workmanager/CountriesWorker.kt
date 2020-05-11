@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class CountriesWorker @Inject constructor(
     val countriesRepository: CountriesRepository,
-    val appContext: Context,
+    private val appContext: Context,
     workerParams: WorkerParameters
 ): CoroutineWorker(appContext, workerParams) {
 
@@ -35,6 +35,8 @@ class CountriesWorker @Inject constructor(
     private fun syncData() = CoroutineScope(Dispatchers.IO).launch{
         val apiList = countriesRepository.getAllCountriesFromApi()
         val subscribedCountries = countriesRepository.getAllSubscribedCountries()
+        val worldStatistics = countriesRepository.getStatisticsFromApi()
+        countriesRepository.writeStatisticsToSharedPreferences(worldStatistics)
 
         if(subscribedCountries.count() > 0){
 

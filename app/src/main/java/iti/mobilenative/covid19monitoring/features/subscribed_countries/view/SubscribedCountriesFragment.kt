@@ -3,7 +3,6 @@ package iti.mobilenative.covid19monitoring.features.subscribed_countries.view
 import android.app.SearchManager
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
@@ -67,6 +66,8 @@ class SubscribedCountriesFragment : Fragment() {
         )[SubscribedCountriesViewModel::class.java]
         val view = inflater.inflate(R.layout.fragment_subscribed_countries, container, false)
 
+        countriesAdapter =
+            CountriesAdapter(null, ArrayList(), context, isFromSubscribedCountries = true)
 
         subscriptionRecyclerView = view.findViewById(R.id.subscriptionRecyclerView)
         subscriptionRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -75,18 +76,20 @@ class SubscribedCountriesFragment : Fragment() {
         subscribedCountriesViewModel.getAllSubscribedCountriesObservable()
             .observe(requireActivity(),
                 Observer {
-                    if (it.size > 0) {
+                    if (it.isNotEmpty()) {
+                        subscriptionRecyclerView.visibility = VISIBLE
+                        noSubscriptionsLayout.visibility = INVISIBLE
                         countriesAdapter =
                             CountriesAdapter(null, it, context, isFromSubscribedCountries = true)
                         subscriptionRecyclerView.adapter = countriesAdapter
-                        subscriptionRecyclerView.visibility = VISIBLE
-                        noSubscriptionsLayout.visibility = INVISIBLE
                     } else {
                         subscriptionRecyclerView.visibility = INVISIBLE
                         noSubscriptionsLayout.visibility = VISIBLE
                     }
 
                 })
+
+        setHasOptionsMenu(true)
 
         return view
     }
@@ -133,8 +136,7 @@ class SubscribedCountriesFragment : Fragment() {
     }
 
 
-    /*override fun onCreate(@Nullable savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
+    override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
@@ -143,7 +145,7 @@ class SubscribedCountriesFragment : Fragment() {
         navController = Navigation.findNavController(view)
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater!!.inflate(R.menu.app_bar_menu, menu)
+        inflater.inflate(R.menu.app_bar_menu, menu)
         val searchItem: MenuItem = menu.findItem(R.id.search)
         if (searchItem != null) {
             val searchView = MenuItemCompat.getActionView(searchItem) as SearchView
@@ -175,5 +177,5 @@ class SubscribedCountriesFragment : Fragment() {
             navController.navigate(R.id.settingsFragment)
         }
         return super.onOptionsItemSelected(item)
-    }*/
+    }
 }

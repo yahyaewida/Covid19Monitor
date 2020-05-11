@@ -1,7 +1,6 @@
 package iti.mobilenative.covid19monitoring.features.countries.view
 
 import android.app.SearchManager
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -63,6 +62,8 @@ class CountriesFragment : Fragment(),CommunicatorOfAdapterAndFragment {
         countriesViewModel = ViewModelProvider(this, viewModelProvidersFactory)[CountriesViewModel::class.java]
         val view =  inflater.inflate(R.layout.fragment_countries, container, false)
 
+        countriesAdapter = CountriesAdapter(this,ArrayList(), context,isFromSubscribedCountries = false)
+
         countriesRecyclerView = view.findViewById(R.id.countriesRecyclerView)
         countriesRecyclerView.layoutManager = LinearLayoutManager(context)
         worldWideConfirmedCasesTextView = view.findViewById(R.id.confirmedCasesTextView)
@@ -80,13 +81,13 @@ class CountriesFragment : Fragment(),CommunicatorOfAdapterAndFragment {
         super.onResume()
         val subscribedCountries = countriesViewModel.getAllSubscribedCountries()
         Log.i("mainactivity","Subscribed countries are  :"+ subscribedCountries + "\nsize = "+ subscribedCountries.size)
-        countriesViewModel.getStatistics().observe(requireActivity(), Observer {
+        countriesViewModel.getStatisticsFromLocalSharedPreferences().observe(requireActivity(), Observer {
             worldWideConfirmedCasesTextView.text = it.cases.toString()
             worldWideRecoveredCasesTextView.text = it.recovered.toString()
             worldWideDeathsCasesTextView.text = it.deaths.toString()
         })
 
-        setupWorkManager()
+        //setupWorkManager()
         countriesViewModel.getAllCountries().observe(requireActivity(), Observer {
             countriesList = it
             countriesAdapter = CountriesAdapter(this,countriesList, context,isFromSubscribedCountries = false)
@@ -125,7 +126,7 @@ class CountriesFragment : Fragment(),CommunicatorOfAdapterAndFragment {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater!!.inflate(R.menu.app_bar_menu, menu)
+        inflater.inflate(R.menu.app_bar_menu, menu)
         val searchItem: MenuItem = menu.findItem(R.id.search)
         if (searchItem != null) {
             val searchView = MenuItemCompat.getActionView(searchItem) as SearchView

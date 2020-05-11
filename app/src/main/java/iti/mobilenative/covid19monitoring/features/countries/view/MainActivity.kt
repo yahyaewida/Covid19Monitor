@@ -208,7 +208,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var statistics : Statistics
     fun changeValueAction(view: View) {
 
-         statistics = Statistics(
+        /* statistics = Statistics(
              updated = counter.toLong(),
              cases = 500 + counter.toLong(),
              deaths = 500 + counter.toLong(),
@@ -220,7 +220,7 @@ class MainActivity : AppCompatActivity() {
              todayDeaths = 500 + counter.toLong()
          )
        sharedPreferencesHandler.writeInSharedPreferences( statistics)
-        counter++
+        counter++*/
     }
 
     /*fun simulateData() : LiveData<List<Country>> {

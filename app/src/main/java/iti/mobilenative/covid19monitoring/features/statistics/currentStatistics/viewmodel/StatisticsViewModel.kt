@@ -8,8 +8,7 @@ import javax.inject.Inject
 
 class StatisticsViewModel @Inject constructor(val countriesRepository: CountriesRepository) :ViewModel(){
 
-
     fun getStatistics(): LiveData<Statistics> {
-        return countriesRepository.getStatisticsFromApi()
+        return countriesRepository.getStatisticsFromSharedPreferences()
     }
 }

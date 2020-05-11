@@ -22,7 +22,7 @@ class SharedPreferencesHandler @Inject constructor(var sharedPreferences: Shared
         sharedPreferences.registerOnSharedPreferenceChangeListener(changeListenerSharedPreferences)
     }
 
-    fun getDataFromSharedPreferences() : LiveData<Statistics>{
+    suspend fun getDataFromSharedPreferences() : LiveData<Statistics>{
         if(sharedPreferencesLiveData.value == null){
             sharedPreferencesLiveData.postValue(prepareObjectForReading(sharedPreferences))
         }
@@ -34,7 +34,7 @@ class SharedPreferencesHandler @Inject constructor(var sharedPreferences: Shared
     }
 
 
-    fun writeInSharedPreferences(statisticsObject: Statistics) {
+    suspend fun writeInSharedPreferences(statisticsObject: Statistics) {
         val editor = sharedPreferences.edit()
         editor.putLong(UPDATED_KEY_SP, statisticsObject.updated)
         editor.putLong(CASES_KEY_SP, statisticsObject.cases)

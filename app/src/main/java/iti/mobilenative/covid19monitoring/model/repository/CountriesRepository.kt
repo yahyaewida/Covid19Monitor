@@ -3,6 +3,7 @@ package iti.mobilenative.covid19monitoring.model.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import iti.mobilenative.covid19monitoring.model.local_database.CountryDao
+import iti.mobilenative.covid19monitoring.model.local_database.SharedPreferencesHandler
 import iti.mobilenative.covid19monitoring.model.pojo.Country
 import iti.mobilenative.covid19monitoring.model.pojo.HistoricalStatistics
 import iti.mobilenative.covid19monitoring.model.pojo.Statistics
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 class CountriesRepository @Inject constructor(val retrofit : CovidApiService) {
     @Inject lateinit var countryDao : CountryDao
-
+    @Inject lateinit var sharedPreferencesHandler: SharedPreferencesHandler
 
     //API functions
 
@@ -30,10 +31,8 @@ class CountriesRepository @Inject constructor(val retrofit : CovidApiService) {
         }
     }
 
-    fun getStatisticsFromApi(): LiveData<Statistics>{
-        return liveData(Dispatchers.IO) {
-            emit(retrofit.getStatistics())
-        }
+    suspend fun getStatisticsFromApi() : Statistics{
+            return retrofit.getStatistics()
     }
 
     fun getHistoricalStatisticsFromApi(forLastNumberOfDays : String): LiveData<HistoricalStatistics>{
@@ -80,11 +79,18 @@ class CountriesRepository @Inject constructor(val retrofit : CovidApiService) {
         }
     }
 
-
-    fun deleteCountry(countryName :String){
-        CoroutineScope(Dispatchers.IO).launch {
-            countryDao.deleteCountry(countryName)
+    // shared Preferences
+    fun getStatisticsFromSharedPreferences() : LiveData<Statistics>{
+        return liveData(Dispatchers.IO) {
+            emitSource(sharedPreferencesHandler.getDataFromSharedPreferences())
         }
+    }
+
+    fun writeStatisticsToSharedPreferences(statistics: Statistics){
+        CoroutineScope(Dispatchers.IO).launch {
+            sharedPreferencesHandler.writeInSharedPreferences(statistics)
+        }
+
     }
 
 }

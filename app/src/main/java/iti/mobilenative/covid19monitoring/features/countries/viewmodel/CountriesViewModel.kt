@@ -22,8 +22,8 @@ class CountriesViewModel @Inject constructor(val repository: CountriesRepository
     }
 
 
-    fun getStatistics(): LiveData<Statistics> {
-        return repository.getStatisticsFromApi()
+    fun getStatisticsFromLocalSharedPreferences(): LiveData<Statistics> {
+        return repository.getStatisticsFromSharedPreferences()
     }
 
     fun subscribeToCountry(countryName :String){
