@@ -31,6 +31,7 @@ class SettingsFragment : Fragment(),View.OnClickListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         notify_btn.setOnClickListener(this)
+        bk.setOnClickListener(this)
 
     }
     override fun onStop() {
@@ -40,6 +41,7 @@ class SettingsFragment : Fragment(),View.OnClickListener{
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.notify_btn -> getNotificationInterval(v)
+            R.id.bk -> requireActivity().onBackPressed()
         }
     }
 

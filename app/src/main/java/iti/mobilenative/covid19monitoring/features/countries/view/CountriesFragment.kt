@@ -2,9 +2,11 @@ package iti.mobilenative.covid19monitoring.features.countries.view
 
 import android.app.SearchManager
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.GridView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.Nullable
@@ -23,11 +25,13 @@ import androidx.work.*
 import iti.mobilenative.covid19monitoring.R
 import iti.mobilenative.covid19monitoring.dagger.modules.activity.ActivityModule
 import iti.mobilenative.covid19monitoring.features.countries.viewmodel.CountriesViewModel
+import iti.mobilenative.covid19monitoring.model.pojo.Case
 import iti.mobilenative.covid19monitoring.model.pojo.Country
 import iti.mobilenative.covid19monitoring.model.workmanager.CountriesWorker
 import iti.mobilenative.covid19monitoring.utils.App
 import iti.mobilenative.covid19monitoring.utils.ViewModelProvidersFactory
 import iti.mobilenative.covid19monitoring.utils.WORK_MANAGER_TAG
+import kotlinx.android.synthetic.main.fragment_countries.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -43,12 +47,14 @@ class CountriesFragment : Fragment(),CommunicatorOfAdapterAndFragment {
     private lateinit var countriesList:List<Country>
     private lateinit var countriesAdapter: CountriesAdapter
 
+    private  var caseAdapter: CaseAdapter? = null
+    private lateinit var casesGridView : GridView
+    private var case = Case()
+    private var death = Case()
+    private var recoverd = Case()
+    var casesList: ArrayList<Case> = ArrayList(3)
+
     private lateinit var countriesRecyclerView : RecyclerView
-
-    lateinit var worldWideConfirmedCasesTextView: TextView
-    lateinit var worldWideRecoveredCasesTextView: TextView
-    lateinit var worldWideDeathsCasesTextView: TextView
-
     lateinit var countriesViewModel : CountriesViewModel
 
     lateinit var navController : NavController
@@ -57,35 +63,52 @@ class CountriesFragment : Fragment(),CommunicatorOfAdapterAndFragment {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
-
         (activity?.application as App).appComponent.provideActivity(ActivityModule(FragmentActivity(this.id))).inject(this)
         countriesViewModel = ViewModelProvider(this, viewModelProvidersFactory)[CountriesViewModel::class.java]
         val view =  inflater.inflate(R.layout.fragment_countries, container, false)
-
         countriesRecyclerView = view.findViewById(R.id.countriesRecyclerView)
         countriesRecyclerView.layoutManager = LinearLayoutManager(context)
-        worldWideConfirmedCasesTextView = view.findViewById(R.id.confirmedCasesTextView)
-        worldWideRecoveredCasesTextView = view.findViewById(R.id.recoveredCasesTextView)
-        worldWideDeathsCasesTextView = view.findViewById(R.id.deathsCasesTextView)
-
+        casesGridView = view.findViewById(R.id.grid_view)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
+        if(casesList.size==0){
+            casesList.add(case)
+            casesList.add(recoverd)
+            casesList.add(death)
+        }
     }
+
     override fun onResume() {
         super.onResume()
         val subscribedCountries = countriesViewModel.getAllSubscribedCountries()
         Log.i("mainactivity","Subscribed countries are  :"+ subscribedCountries + "\nsize = "+ subscribedCountries.size)
         countriesViewModel.getStatistics().observe(requireActivity(), Observer {
-            worldWideConfirmedCasesTextView.text = it.cases.toString()
-            worldWideRecoveredCasesTextView.text = it.recovered.toString()
-            worldWideDeathsCasesTextView.text = it.deaths.toString()
-        })
+           case.title="Cases"
+           case.numbers = it.cases.toString()
+           case.color =  Color.rgb(166,221,241)
+            casesList.set(0,case)
 
+            recoverd.title="Recovered"
+            recoverd.numbers = it.recovered.toString()
+            recoverd.color =  Color.rgb(160,231,160)
+            casesList.set(1,recoverd)
+
+            death.title="Deaths"
+            death.numbers = it.deaths.toString()
+            death.color =  Color.rgb(255,153,148)
+            casesList.set(2,death)
+
+            caseAdapter = CaseAdapter(casesList,requireContext())
+            grid_view.numColumns = 3
+            grid_view.horizontalSpacing = 15
+
+            grid_view.adapter = caseAdapter
+
+        })
         setupWorkManager()
         countriesViewModel.getAllCountries().observe(requireActivity(), Observer {
             countriesList = it
@@ -134,12 +157,12 @@ class CountriesFragment : Fragment(),CommunicatorOfAdapterAndFragment {
 
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
-                    countriesAdapter.filter.filter(query)
+                    //countriesAdapter.filter.filter(query)
                     Toast.makeText(context, "Seach Query: " + query, Toast.LENGTH_SHORT).show()
                     return false
                 }
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    countriesAdapter.filter.filter(newText)
+                    //countriesAdapter.filter.filter(newText)
                     Toast.makeText(context, "Seach Query: " + newText, Toast.LENGTH_SHORT).show()
                     return false
                 }
