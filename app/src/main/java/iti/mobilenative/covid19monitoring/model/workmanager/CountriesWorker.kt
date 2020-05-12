@@ -99,7 +99,7 @@ class CountriesWorker @Inject constructor(
 
             content += it.country +"-> "
             if(it.active > 0 ){
-                content += "active : "+ it.cases
+                content += "active : "+ it.active
             }
             if(it.recovered > 0){
                 content += " , recovered : " +it.recovered

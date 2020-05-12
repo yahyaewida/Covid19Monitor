@@ -17,10 +17,6 @@ class CountriesViewModel @Inject constructor(val repository: CountriesRepository
         return repository.getAllSubscribedCountries()
     }
 
-    suspend fun getAllCountriesFromApi() : List<Country>{
-        return repository.getAllCountriesFromApi()
-    }
-
 
     fun getStatisticsFromLocalSharedPreferences(): LiveData<Statistics> {
         return repository.getStatisticsFromSharedPreferences()
@@ -32,6 +28,14 @@ class CountriesViewModel @Inject constructor(val repository: CountriesRepository
 
     fun unsubscribeFromCountry(countryName :String){
         repository.unsubscribeFromCountry(countryName)
+    }
+
+    fun updateDatabaseFromApiData() {
+        repository.syncData()
+    }
+
+    fun readSettingsFromSharedPreferences() : Long{
+        return repository.readSettingsFromSharedPreferences()
     }
 
 

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:layout_margin="16dp"
-    app:cardBackgroundColor="#f8f7ff">
+    app:cardCornerRadius="10dp"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,22 +17,21 @@
             android:id="@+id/contryFlagImageView"
             android:layout_width="50dp"
             android:layout_height="25dp"
-
-            android:layout_marginStart="112dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/divider_horizontal_dim_dark" />
 
         <TextView
             android:id="@+id/countryNameRecyclerItemTextView"
-            android:layout_width="161dp"
+            android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_margin="8dp"
             android:text="TextView"
             android:textAlignment="textStart"
             android:textColor="@color/design_default_color_on_secondary"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/contryFlagImageView"
             app:layout_constraintEnd_toStartOf="@+id/subscriptionImageView"
@@ -44,6 +44,7 @@
             android:id="@+id/subscriptionImageView"
             android:layout_width="35dp"
             android:layout_height="31dp"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/countryNameRecyclerItemTextView"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +56,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
             android:orientation="vertical"
@@ -111,7 +112,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="4dp">
 
                 <TextView
                     android:id="@+id/confirmedCasesRecyclerItemTextView"
@@ -120,7 +122,7 @@
                     android:layout_weight="1"
                     android:text="3345000"
                     android:textAlignment="center"
-                    android:textColor="@color/design_default_color_on_secondary"
+                    android:textColor="#49a5c5"
                     android:textSize="16sp"
                     tools:text="3345000" />
 
@@ -132,7 +134,7 @@
                     android:layout_weight="1"
                     android:text="2000000"
                     android:textAlignment="center"
-                    android:textColor="@color/design_default_color_on_secondary"
+                    android:textColor="#5bd75b"
                     android:textSize="16sp"
                     tools:text="2000000" />
 
@@ -144,7 +146,7 @@
                     android:layout_weight="1"
                     android:text="65000"
                     android:textAlignment="center"
-                    android:textColor="@color/design_default_color_on_secondary"
+                    android:textColor="#cd5c5c"
                     android:textSize="16sp"
                     tools:text="65000" />
 

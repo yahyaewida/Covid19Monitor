@@ -93,4 +93,38 @@ class CountriesRepository @Inject constructor(val retrofit : CovidApiService) {
 
     }
 
+    fun writeSettingsInSharedPreferences(numberOfHours : Long){
+       sharedPreferencesHandler.writeSettingsInSharedPreferences(numberOfHours)
+    }
+    fun readSettingsFromSharedPreferences() : Long{
+        return sharedPreferencesHandler.readSettingsFromSharedPreferences()
+    }
+
+    //Data synchronization
+
+     fun syncData() = CoroutineScope(Dispatchers.IO).launch{
+        val apiList = getAllCountriesFromApi()
+        val subscribedCountries = getAllSubscribedCountries()
+        val worldStatistics = getStatisticsFromApi()
+        writeStatisticsToSharedPreferences(worldStatistics)
+
+        if(subscribedCountries.count() > 0){
+            updateApiCountriesWithSubscribedCountries(apiList,subscribedCountries)
+        }
+
+        insertAllCountries(apiList)
+    }
+
+    private fun  updateApiCountriesWithSubscribedCountries(apiList : List<Country>, subscribedCountries: List<Country>){
+        apiList.map {apiCountry ->
+            subscribedCountries.forEach {subscribedCountry ->
+                if(apiCountry.country == subscribedCountry.country){
+                    apiCountry.isSubscribed = true
+                }
+            }
+        }
+    }
+
+
+
 }

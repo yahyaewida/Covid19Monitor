@@ -89,8 +89,6 @@ class SubscribedCountriesFragment : Fragment() {
 
                 })
 
-        setHasOptionsMenu(true)
-
         return view
     }
 
@@ -137,6 +135,7 @@ class SubscribedCountriesFragment : Fragment() {
 
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
     }
 
@@ -156,12 +155,10 @@ class SubscribedCountriesFragment : Fragment() {
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     countriesAdapter.filter.filter(query)
-                    Toast.makeText(context, "Seach Query: " + query, Toast.LENGTH_SHORT).show()
                     return false
                 }
                 override fun onQueryTextChange(newText: String?): Boolean {
                     countriesAdapter.filter.filter(newText)
-                    Toast.makeText(context, "Seach Query: " + newText, Toast.LENGTH_SHORT).show()
                     return false
                 }
             })

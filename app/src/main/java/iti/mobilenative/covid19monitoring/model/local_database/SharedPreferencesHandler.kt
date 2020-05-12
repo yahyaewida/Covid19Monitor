@@ -34,7 +34,16 @@ class SharedPreferencesHandler @Inject constructor(var sharedPreferences: Shared
     }
 
 
-    suspend fun writeInSharedPreferences(statisticsObject: Statistics) {
+    fun writeSettingsInSharedPreferences(numberOfHours : Long){
+        val editor = sharedPreferences.edit()
+        editor.putLong(SETTINGS_KEY, numberOfHours)
+        editor.apply()
+    }
+    fun readSettingsFromSharedPreferences() : Long{
+        return sharedPreferences.getLong(SETTINGS_KEY,1)
+    }
+
+    fun writeInSharedPreferences(statisticsObject: Statistics) {
         val editor = sharedPreferences.edit()
         editor.putLong(UPDATED_KEY_SP, statisticsObject.updated)
         editor.putLong(CASES_KEY_SP, statisticsObject.cases)
