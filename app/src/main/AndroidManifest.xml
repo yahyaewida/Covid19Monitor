@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="iti.mobilenative.covid19monitoring">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,7 +18,9 @@
         </activity>
         <!--<activity android:name=".features.selectedCountries.view.SubscribeActivity" />
         <activity android:name=".features.statistics.view.StatisticsActivity" /> -->
-        <activity android:name=".features.HomeActivity">
+        <activity android:name=".features.HomeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

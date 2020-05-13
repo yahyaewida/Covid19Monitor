@@ -3,7 +3,6 @@ package iti.mobilenative.covid19monitoring.features.countries.view
 import android.app.SearchManager
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
@@ -31,7 +30,6 @@ import iti.mobilenative.covid19monitoring.model.workmanager.CountriesWorker
 import iti.mobilenative.covid19monitoring.utils.App
 import iti.mobilenative.covid19monitoring.utils.ViewModelProvidersFactory
 import iti.mobilenative.covid19monitoring.utils.WORK_MANAGER_TAG
-import kotlinx.android.synthetic.main.fragment_countries.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -103,7 +101,6 @@ class CountriesFragment : Fragment(),CommunicatorOfAdapterAndFragment {
     override fun onResume() {
         super.onResume()
         val subscribedCountries = countriesViewModel.getAllSubscribedCountries()
-        Log.i("mainactivity","Subscribed countries are  :"+ subscribedCountries + "\nsize = "+ subscribedCountries.size)
 
         countriesViewModel.getStatisticsFromLocalSharedPreferences().observe(requireActivity(), Observer {
            case.title="Cases"
@@ -122,10 +119,10 @@ class CountriesFragment : Fragment(),CommunicatorOfAdapterAndFragment {
             casesList.set(2,death)
 
             caseAdapter = CaseAdapter(casesList,requireContext())
-            grid_view.numColumns = 3
-            grid_view.horizontalSpacing = 15
+            casesGridView.numColumns = 3
+            casesGridView.horizontalSpacing = 15
 
-            grid_view.adapter = caseAdapter
+            casesGridView.adapter = caseAdapter
 
         })
         setupWorkManager(countriesViewModel.readSettingsFromSharedPreferences())

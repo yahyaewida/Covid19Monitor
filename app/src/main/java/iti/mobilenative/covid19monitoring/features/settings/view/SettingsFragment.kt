@@ -91,8 +91,6 @@ class SettingsFragment : Fragment(),View.OnClickListener{
 
     private fun editWorkManager(numberOfHours : Long){
 
-        Toast.makeText(context, "Work manager time changed to $numberOfHours",
-            Toast.LENGTH_SHORT).show()
         val request = PeriodicWorkRequestBuilder<CountriesWorker>(numberOfHours, TimeUnit.HOURS)
             .setInitialDelay(numberOfHours, TimeUnit.HOURS)
             .setConstraints(getWorkManagerConstraints())
