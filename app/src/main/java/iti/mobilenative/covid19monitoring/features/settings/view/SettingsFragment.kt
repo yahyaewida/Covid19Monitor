@@ -23,8 +23,7 @@ import javax.inject.Inject
 
 
 class SettingsFragment : Fragment(),View.OnClickListener{
-    lateinit var selected_radio_btn: RadioButton;
-
+    lateinit var selected_radio_btn: RadioButton
     @Inject
     lateinit var viewModelProvidersFactory: ViewModelProvidersFactory
     private lateinit var settingsViewModel : SettingsViewModel
@@ -49,6 +48,7 @@ class SettingsFragment : Fragment(),View.OnClickListener{
         super.onViewCreated(view, savedInstanceState)
         notify_btn.setOnClickListener(this)
         bk.setOnClickListener(this)
+        getIntervalSettingsSharedPref()
 
     }
     override fun onStop() {
@@ -61,7 +61,23 @@ class SettingsFragment : Fragment(),View.OnClickListener{
             R.id.bk -> requireActivity().onBackPressed()
         }
     }
-
+    private fun getIntervalSettingsSharedPref(){
+        val selectedInterval = settingsViewModel.readSettingsFromSharedPreferences()
+        when(selectedInterval){
+            1L ->{
+                (radio_group.getChildAt(0) as RadioButton).isChecked = true
+            }
+            2L ->{
+                (radio_group.getChildAt(1) as RadioButton).isChecked = true
+            }
+            4L ->{
+                (radio_group.getChildAt(2) as RadioButton).isChecked = true
+            }
+            24L ->{
+                (radio_group.getChildAt(3) as RadioButton).isChecked = true
+            }
+        }
+    }
     private fun getNotificationInterval(v: View?) {
         var id: Int = radio_group.checkedRadioButtonId
         if (id!=-1){

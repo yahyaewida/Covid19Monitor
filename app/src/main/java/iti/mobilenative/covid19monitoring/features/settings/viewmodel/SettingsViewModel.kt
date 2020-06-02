@@ -9,4 +9,7 @@ class SettingsViewModel @Inject constructor(val repository: CountriesRepository)
     fun writeSettingsInSharedPreferences(numberOfHours : Long){
         repository.writeSettingsInSharedPreferences(numberOfHours)
     }
+    fun readSettingsFromSharedPreferences() : Long{
+        return repository.readSettingsFromSharedPreferences()
+    }
 }
